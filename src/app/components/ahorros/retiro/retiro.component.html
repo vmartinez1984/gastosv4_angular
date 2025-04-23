@@ -1,0 +1,29 @@
+<div class="container">
+
+    <form [formGroup]="formGroup" (submit)="guardar()" >
+        <mat-form-field appearance="outline">
+            <mat-label>Cantidad</mat-label>
+            <input matInput formControlName="cantidad" type="number" minlength="0.1" >
+        </mat-form-field>
+        
+        <br />
+        <mat-form-field appearance="outline">
+            <mat-label>Concepto</mat-label>
+            <input matInput formControlName="concepto">
+        </mat-form-field>
+        
+        <br />
+        @if(estaCargando){
+            <button mat-fab extended color="primary" type="submit" [disabled]="estaCargando">
+                <mat-spinner [diameter]="20"></mat-spinner>
+            </button>
+            Un momento ...
+        }@else {
+            <button mat-fab extended color="primary" type="submit">
+                <mat-icon>save</mat-icon> Guardar
+            </button>
+        }
+    </form>
+
+    <a href="ahorros/{{ahorroId}}">Atras</a>
+</div>

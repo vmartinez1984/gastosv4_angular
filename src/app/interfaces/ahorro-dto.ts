@@ -1,6 +1,6 @@
 export interface AhorroDto {
     id: number
-    nombre?: string
+    nombre: string
     balance: number
     tipoDeAhorroId: number
     guid: string

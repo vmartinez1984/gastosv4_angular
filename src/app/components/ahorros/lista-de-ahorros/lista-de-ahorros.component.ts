@@ -19,6 +19,7 @@ export class ListaDeAhorrosComponent {
   ahorros: AhorroDto[]=[]
   estaCargando= false
   dataSource = new MatTableDataSource(this.ahorros)
+  total: number = 0
   
   constructor(private servicio: GastoService){
     this.estaCargando = true
@@ -28,6 +29,9 @@ export class ListaDeAhorrosComponent {
         this.ahorros = ahorros
         this.dataSource = new MatTableDataSource(this.ahorros)
         this.estaCargando = false
+        this.ahorros.forEach(item=>{
+          this.total = this.total + item.balance
+        })
       }
     })
   }
