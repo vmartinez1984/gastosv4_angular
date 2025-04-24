@@ -12,6 +12,12 @@ import { ListaDeVersionesComponent } from './components/versiones/lista-de-versi
 import { AgregarVersionComponent } from './components/versiones/agregar-version/agregar-version.component';
 import { EditarVersionComponent } from './components/versiones/editar-version/editar-version.component';
 import { DetallesDeVersionComponent } from './components/versiones/detalles-de-version/detalles-de-version.component';
+import { AgregarPresupuestoComponent } from './components/versiones/presupuestos/agregar-presupuesto/agregar-presupuesto.component';
+import { EditarPresupuestoComponent } from './components/versiones/presupuestos/editar-presupuesto/editar-presupuesto.component';
+import { ListaDePeriodosComponent } from './components/periodos/lista-de-periodos/lista-de-periodos.component';
+import { AgregarPeriodoComponent } from './components/periodos/agregar-periodo/agregar-periodo.component';
+import { EditarPeriodoComponent } from './components/periodos/editar-periodo/editar-periodo.component';
+import { DetalleDePeriodoComponent } from './components/periodos/detalle-de-periodo/detalle-de-periodo.component';
 
 export const routes: Routes = [
     { path: "subcategorias", component: ListaDeSubcategoriasComponent },
@@ -22,10 +28,16 @@ export const routes: Routes = [
     { path: "ahorros/editar/:id", component: EditarAhorroComponent },
     { path: "ahorros/detalles/:id", component: DetallesDelAhorroComponent },
     { path: "ahorros/:id/detalles", component: DetallesDelAhorroComponent },
-    { path: "ahorros/:id/depositar", component: DepositoComponent},
-    { path: "ahorros/:id/retirar", component: RetiroComponent},
-    { path: "versiones", component: ListaDeVersionesComponent},
-    { path: "versiones/agregar", component: AgregarVersionComponent},
-    { path: "versiones/:id/editar", component: EditarVersionComponent},
-    { path: "versiones/:id/detalles", component: DetallesDeVersionComponent},
+    { path: "ahorros/:id/depositar", component: DepositoComponent },
+    { path: "ahorros/:id/retirar", component: RetiroComponent },
+    { path: "versiones", component: ListaDeVersionesComponent },
+    { path: "versiones/agregar", component: AgregarVersionComponent },
+    { path: "versiones/:id/editar", component: EditarVersionComponent },
+    { path: "versiones/:id/detalles", component: DetallesDeVersionComponent },
+    { path: "versiones/:id/presupuestos/agregar", component: AgregarPresupuestoComponent },
+    { path: "versiones/:id/presupuestos/:presupuestoId/editar", component: EditarPresupuestoComponent },
+    { path: "periodos", component: ListaDePeriodosComponent },
+    { path: "periodos/agregar", component: AgregarPeriodoComponent },
+    { path: "periodos/:id/editar", component: EditarPeriodoComponent },
+    { path: "periodos/:id/detalles", component: DetalleDePeriodoComponent },
 ];

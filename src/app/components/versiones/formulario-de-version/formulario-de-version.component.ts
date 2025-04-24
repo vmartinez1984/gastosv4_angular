@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { VersionDtoIn } from '../../../interfaces/version-dto';
-import { generarGuid } from '../../../helpers/guid';
 import { MaterialModule } from '../../../modules/material/material.module';
 
 @Component({
@@ -45,7 +44,6 @@ export class FormularioDeVersionComponent {
       this.formGroup.get('fechaFinal')?.enable()
       this.formGroup.get('fechaInicial')?.enable()
     }
-
   }
 
   guardar() {

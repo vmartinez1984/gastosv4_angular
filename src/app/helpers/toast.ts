@@ -11,6 +11,9 @@ export function ok() {
     });
 }
 
+/**
+ * Error generico de sweet alert 2
+ */
 export function error() {
     Swal.fire({
         position: "top-end",

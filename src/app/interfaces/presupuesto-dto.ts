@@ -1,14 +1,18 @@
 export interface PresupuestoDto {
-    id: number
-    //subcategoria: null,
-    cantidad: number
-    //versionId: number
+    id: number    
+    cantidad: number    
     ahorroId: number
     subcategoriaId: number
-    guid: number
-    //movimientos: [],
+    guid: string    
     ahorroTipo: string
     estado: string
     totalGastado: number
     disponible: number
+}
+
+export interface PresupuestoDtoIn{
+    guid: string
+    cantidad: number    
+    ahorroId: number
+    subcategoriaId: number
 }

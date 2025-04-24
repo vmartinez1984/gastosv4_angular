@@ -1,1 +1,4 @@
-<p>editar-presupuesto works!</p>
+<div class="container">
+    <h1>Editar presupuesto</h1>
+    <app-formulario-de-presupuesto (presupuestoEvenEmitter)="guardar($event)" [estaCargando]="estaCargando" [presupuestoDtoIn]="presupuestoDtoIn"/>
+</div>
