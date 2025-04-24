@@ -8,7 +8,7 @@ import { MaterialModule } from './modules/material/material.module';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes),
-    provideHttpClient(),
+    provideHttpClient(),    
     MaterialModule
   ]
 };

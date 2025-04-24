@@ -9,6 +9,9 @@ import { MovimientoDto, MovimientoDtoIn } from '../interfaces/movimiento-dto';
   providedIn: 'root'
 })
 export class AhorroService {
+  borrar(ahorroId: number):Observable<any> {
+    return this.httpClient.delete<any>(this.url + ahorroId )
+  }
   retirar(ahorroId: number, deposito: MovimientoDtoIn):Observable<any> {
     return this.httpClient.post<any>(this.url + ahorroId + "/Retiros", deposito)
   }

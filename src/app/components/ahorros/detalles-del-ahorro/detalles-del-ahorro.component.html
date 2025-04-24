@@ -4,7 +4,7 @@
             {{ahorroDto?.nombre}}
         </mat-card-header>
         <mat-card-content>
-            {{ahorroDto?.balance}}
+            {{ahorroDto?.balance | currency}}
             <br/>
             <!-- {{ahorroDto?.fechaInicial}}
             {{ahorroDto?.fechaFinal}} -->
@@ -19,17 +19,17 @@
     <table mat-table [dataSource]="movimientos">
         <ng-container matColumnDef="saldoInicial">
             <th mat-header-cell *matHeaderCellDef>Inicial</th>
-            <td mat-cell *matCellDef="let element">{{element.saldoInicial}}</td>
+            <td mat-cell *matCellDef="let element">{{element.saldoInicial | currency}}</td>
         </ng-container>
 
         <ng-container matColumnDef="cantidad">
             <th mat-header-cell *matHeaderCellDef>Cantidad</th>
-            <td mat-cell *matCellDef="let element">{{element.cantidad}}</td>
+            <td mat-cell *matCellDef="let element">{{element.cantidad | currency }}</td>
         </ng-container>
         
         <ng-container matColumnDef="saldoFinal">
             <th mat-header-cell *matHeaderCellDef>Final</th>
-            <td mat-cell *matCellDef="let element">{{element.saldoFinal}}</td>
+            <td mat-cell *matCellDef="let element">{{element.saldoFinal | currency}}</td>
         </ng-container>
 
         <ng-container matColumnDef="concepto">
@@ -39,7 +39,7 @@
 
         <ng-container matColumnDef="fechaDeRegistro">
             <th mat-header-cell *matHeaderCellDef>Fecha</th>
-            <td mat-cell *matCellDef="let element">{{element.fechaDeRegistro}}</td>
+            <td mat-cell *matCellDef="let element">{{element.fechaDeRegistro | date}}</td>
         </ng-container>
 
 
