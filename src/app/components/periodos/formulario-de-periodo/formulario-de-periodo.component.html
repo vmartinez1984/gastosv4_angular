@@ -1,1 +1,44 @@
-<p>formulario-de-periodo works!</p>
+<form [formGroup]="formGroup" (submit)="guardar()">
+    <mat-form-field appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="nombre">
+    </mat-form-field>
+
+    <br />
+    <mat-form-field appearance="outline">
+        <input matInput [matDatepicker]="picker" formControlName="fechaInicial">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <br />
+    <mat-form-field appearance="outline">
+        <input matInput [matDatepicker]="picker1" formControlName="fechaFinal">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+
+    <br />
+    <mat-form-field appearance="outline">
+        <mat-label>Version</mat-label>
+        <mat-select formControlName="versionId">
+            @for (item of versiones; track $index) {
+            <mat-option value="{{item.id}}">{{item.nombre}}</mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+
+    <br />
+    @if(estaCargando){
+    <button mat-fab extended color="primary" type="submit" [disabled]="estaCargando">
+        <mat-spinner [diameter]="20"></mat-spinner>
+    </button>
+    Un momento ...
+    }@else {
+    <button mat-fab extended color="primary" type="submit">
+        <mat-icon>save</mat-icon> Guardar
+    </button>
+    }
+</form>

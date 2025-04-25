@@ -1,1 +1,5 @@
-<p>agregar-periodo works!</p>
+<div class="container">
+
+    <h2>Agregar Periodo</h2>
+    <app-formulario-de-periodo [estaCargando]="estaCargando" (periodoEventEmitter)="guardar($event)"/>
+</div>

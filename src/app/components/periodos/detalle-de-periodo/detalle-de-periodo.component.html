@@ -1,1 +1,53 @@
-<p>detalle-de-periodo works!</p>
+<div class="container">
+
+    <h1>Detalle de Periodo</h1>
+    <!-- <p>{{total | currency}}</p>     -->
+
+    @if(estaCargando){
+        <div class="text-aling-center">
+            <mat-spinner></mat-spinner>
+        </div>
+    }
+          
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="cantidad">
+            <th mat-header-cell *matHeaderCellDef>Cantidad</th>
+            <td mat-cell *matCellDef="let element">{{element.cantidad | currency}}
+        </ng-container>
+
+        <ng-container matColumnDef="subcategoria">
+            <th mat-header-cell *matHeaderCellDef>Subcategoria</th>
+            <td mat-cell *matCellDef="let element">
+                {{element.subcategoria.nombre}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="ahorro tipo">
+            <th mat-header-cell *matHeaderCellDef>Tipo de ahorro</th>
+            <td mat-cell *matCellDef="let element">
+                {{element.ahorroTipo}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+                <a mat-mini-fab href="versiones/{{id}}/presupuestos/{{element.id}}/editar">
+                    <mat-icon>edit_note</mat-icon>
+                </a>
+                <!-- <a mat-mini-fab href="/versiones/{{element.id}}/detalles">
+                    <mat-icon>notes</mat-icon>
+                </a> -->
+                <button mat-mini-fab style="color: red;" (click)="borrar(element)">
+                    <mat-icon >delete</mat-icon>
+                </button>
+                <a mat-mini-fab href="/ahorros/{{element.ahorroId}}/detalles">
+                    <mat-icon>savings</mat-icon>
+                </a>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+        <tr mat-row *matRowDef=" let row; columns: columnas;"></tr>
+    </table>
+</div>
