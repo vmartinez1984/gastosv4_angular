@@ -9,6 +9,10 @@ import { MovimientoDto, MovimientoDtoIn } from '../interfaces/movimiento-dto';
   providedIn: 'root'
 })
 export class AhorroService {
+  obtenerAhorroEje():Observable<AhorroDto> {    
+    return this.httpClient.get<AhorroDto>(this.url + "Fondeador")
+  }
+  
   borrar(ahorroId: number):Observable<any> {
     return this.httpClient.delete<any>(this.url + ahorroId )
   }

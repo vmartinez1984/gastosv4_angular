@@ -17,8 +17,8 @@ export class ListaDePeriodosComponent {
   
    borrar(ahorro: PeriodoDto) {
       Swal.fire({
-        title: "¿Desea borrar el ahorro?",
-        //text: ahorro.nombre + " " + ahorro.tipoDeAhorro.nombre,
+        title: "¿Desea borrar el periodo?",
+        text: ahorro.nombre,
         showDenyButton: false,
         showCancelButton: true,
         confirmButtonText: "Borrar",
@@ -33,7 +33,7 @@ export class ListaDePeriodosComponent {
             toast: true,
             timer: 1500
           });
-          this.servicio.ahorro.borrar(ahorro.id).subscribe({
+          this.servicio.periodo.borrar(ahorro.id).subscribe({
             next: (data) => {
               let index = this.periodos.findIndex(x => x.id == ahorro.id)            
               this.periodos.splice(index, 1)
@@ -41,7 +41,7 @@ export class ListaDePeriodosComponent {
               Swal.fire({
                 position: "top-end",
                 icon: "success",
-                title: "Ahorro borrado correctamente",
+                title: "Periodo borrado correctamente",
                 showConfirmButton: false,
                 toast: true,
                 timer: 1500

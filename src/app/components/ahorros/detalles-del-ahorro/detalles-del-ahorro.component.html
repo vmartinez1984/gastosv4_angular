@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container">    
     <mat-card>
         <mat-card-header>
             {{ahorroDto?.nombre}}
@@ -6,6 +6,7 @@
         <mat-card-content>
             {{ahorroDto?.balance | currency}}
             <br/>
+            Tipo de ahorro: {{ahorroDto?.tipoDeAhorro?.nombre}}
             <!-- {{ahorroDto?.fechaInicial}}
             {{ahorroDto?.fechaFinal}} -->
         </mat-card-content>
@@ -15,6 +16,7 @@
             <a href="ahorros">Atras</a>
           </mat-card-actions>
     </mat-card>
+    <br/>
 
     <table mat-table [dataSource]="movimientos">
         <ng-container matColumnDef="saldoInicial">
@@ -46,4 +48,12 @@
         <tr mat-header-row *matHeaderRowDef="columnas"></tr>
         <tr mat-row *matRowDef="let row; columns: columnas"></tr>
     </table>
+
+    @if (estaCargando) {
+        <div style="align-items: center;">
+            <p>
+                <mat-spinner  style=" top: 50%; left: 50%; transform: translate(-50%, -50%); margin-top: 50%;"/>
+            </p>
+        </div>
+    }
 </div>

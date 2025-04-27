@@ -8,7 +8,7 @@ export interface AhorroDto {
     interes: number
     fechaInicial: Date
     fechaFinal: Date
-    tipoDeAhorro: TipoDeAhorro
+    tipoDeAhorro?: TipoDeAhorro
 }
 
 export interface TipoDeAhorro{

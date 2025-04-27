@@ -6,7 +6,7 @@ import { MatSort, Sort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
-import { error } from '../../../helpers/toast';
+import { error, unMomento } from '../../../helpers/toast';
 
 @Component({
   selector: 'app-lista-de-ahorros',
@@ -18,21 +18,14 @@ export class ListaDeAhorrosComponent {
   borrarAhorro(ahorro: AhorroDto) {
     Swal.fire({
       title: "¿Desea borrar el ahorro?",
-      text: ahorro.nombre + " " + ahorro.tipoDeAhorro.nombre,
+      text: ahorro.nombre + " " + ahorro.tipoDeAhorro?.nombre,
       showDenyButton: false,
       showCancelButton: true,
       confirmButtonText: "Borrar",
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "Un momento...",
-          showConfirmButton: false,
-          toast: true,
-          timer: 1500
-        });
+        unMomento()        
         this.servicio.ahorro.borrar(ahorro.id).subscribe({
           next: (data) => {
             let index = this.ahorros.findIndex(x => x.id == ahorro.id)            

@@ -9,6 +9,9 @@ import { CategoriaDto } from '../interfaces/categoria-dto';
   providedIn: 'root'
 })
 export class SubcategoriaService {
+  borrar(id: number):Observable<any> {
+    return this.httpClient.delete<any>(this.url + id)
+  }
   obtenerPorId(id: number): Observable<SubcategoriaDto> {
     return this.httpClient.get<SubcategoriaDto>(this.url + id)
   }
