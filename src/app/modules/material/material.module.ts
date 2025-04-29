@@ -18,6 +18,7 @@ import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { MatChipsModule } from '@angular/material/chips'
 import { MatSortModule } from '@angular/material/sort'
+import { MatCardModule } from '@angular/material/card'
 
 @NgModule({
   declarations: [],
@@ -42,7 +43,8 @@ import { MatSortModule } from '@angular/material/sort'
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatChipsModule,
-    //MatSortModule
+    //MatSortModule,
+    MatCardModule
   ]
 })
 export class MaterialModule { }

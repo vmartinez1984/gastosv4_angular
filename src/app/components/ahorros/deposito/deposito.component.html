@@ -1,11 +1,22 @@
 <div class="container">
+    <mat-card>
+        <mat-card-content>
+            Total: {{ahorroDto?.balance | currency}}
+        </mat-card-content>
+    </mat-card>
 
+    <br/>
     <form [formGroup]="formGroup" (submit)="guardar()" >
         <mat-form-field appearance="outline">
             <mat-label>Cantidad</mat-label>
-            <input matInput formControlName="cantidad" type="number" minlength="0.1" >
+            <input matInput formControlName="cantidad" type="number" min="1" step="1" (change)="previsualizarTotal()" (keypress)="previsualizarTotal()">
         </mat-form-field>
-        
+        <mat-card>
+            <mat-card-content>
+                {{subtotal | currency}}
+            </mat-card-content>
+        </mat-card>
+
         <br />
         <mat-form-field appearance="outline">
             <mat-label>Concepto</mat-label>

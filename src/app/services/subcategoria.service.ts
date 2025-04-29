@@ -15,19 +15,19 @@ export class SubcategoriaService {
   obtenerPorId(id: number): Observable<SubcategoriaDto> {
     return this.httpClient.get<SubcategoriaDto>(this.url + id)
   }
-  private url = environment.apiUrl + "subcategorias/"
-  constructor(private httpClient: HttpClient) { }
-
+  
   obtenerTodos(): Observable<SubcategoriaDto[]> {
     return this.httpClient.get<SubcategoriaDto[]>(this.url)
   }
-
+  
   agregar(subcategoria: SubcategoriaDtoIn): Observable<any> {
     return this.httpClient.post(this.url, subcategoria)
   }
-
+  
   actualizar(id: number, subcategoria: SubcategoriaDtoIn): Observable<any> {
     return this.httpClient.put(this.url + id, subcategoria)
   }
   
+  private url = environment.apiUrl + "subcategorias/"
+  constructor(private httpClient: HttpClient) { }
 }

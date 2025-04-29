@@ -8,11 +8,13 @@ export interface PresupuestoDto {
     estado: string
     totalGastado: number
     disponible: number
+    versionId: number
 }
 
 export interface PresupuestoDtoIn{
     guid: string
     cantidad: number    
-    ahorroId: number
+    ahorroId?: number
     subcategoriaId: number
+    versionId: number
 }

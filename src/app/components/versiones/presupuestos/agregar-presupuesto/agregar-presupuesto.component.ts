@@ -12,15 +12,15 @@ import { error, ok } from '../../../../helpers/toast';
   styleUrl: './agregar-presupuesto.component.css'
 })
 export class AgregarPresupuestoComponent {
- estaCargando: boolean = false
-
+  
   guardar(presupuesto: PresupuestoDtoIn) {
     this.estaCargando = true
+    presupuesto.versionId = this.versionId
     console.log(presupuesto)
-    this.servicio.version.agregarPresupuesto(this.id, presupuesto).subscribe({
+    this.servicio.presupuesto.agregarPresupuesto(presupuesto).subscribe({
       next: (data) => {
         ok()
-        this.router.navigate(['versiones', this.id, 'detalles'])
+        this.router.navigate(['versiones', this.versionId, 'detalles'])
       },
       error:(data)=>{
         console.log(data)
@@ -29,9 +29,11 @@ export class AgregarPresupuestoComponent {
       }      
     })
   }
-  id: number;
+  
+  estaCargando: boolean = false
+  versionId: number;
 
   constructor(private activatedRoute: ActivatedRoute, private servicio: GastoService, private router: Router) {
-    this.id = Number(this.activatedRoute.snapshot.paramMap.get('id'))
+    this.versionId = Number(this.activatedRoute.snapshot.paramMap.get('id'))
   }
 }

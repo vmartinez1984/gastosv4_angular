@@ -21,7 +21,7 @@ export class EditarPresupuestoComponent {
   guardar(presupuesto: PresupuestoDtoIn) {
     console.log(presupuesto)
     this.estaCargando = true
-    this.servicio.version.actualizarPresupuesto(this.versionId, this.presupuestoId, presupuesto).subscribe({
+    this.servicio.presupuesto.actualizarPresupuesto(this.presupuestoId, presupuesto).subscribe({
       next: (data) => {
         ok()
         this.router.navigate(['versiones', this.versionId, 'detalles'])
@@ -38,15 +38,16 @@ export class EditarPresupuestoComponent {
     this.versionId = Number(this.activatedRoute.snapshot.paramMap.get('id'))
     this.presupuestoId = Number(this.activatedRoute.snapshot.paramMap.get('presupuestoId'))
     this.estaCargando = true
-    this.servicio.version.obtenerPresupuesto(this.versionId, this.presupuestoId).subscribe({
+    this.servicio.presupuesto.obtenerPresupuesto(this.presupuestoId).subscribe({
       next: (presupuesto) => {
-        //console.log(presupuesto)
+        console.log(presupuesto)
         this.presupuestoDto = presupuesto
         this.presupuestoDtoIn = {
           ahorroId: presupuesto.ahorroId,
           cantidad: presupuesto.cantidad,
           guid: presupuesto.guid,
-          subcategoriaId: presupuesto.subcategoriaId
+          subcategoriaId: presupuesto.subcategoriaId,
+          versionId: presupuesto.versionId
         }
         this.estaCargando = false
       },

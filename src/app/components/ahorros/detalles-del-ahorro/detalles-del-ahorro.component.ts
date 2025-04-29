@@ -5,8 +5,8 @@ import { AhorroDto } from '../../../interfaces/ahorro-dto';
 import { MovimientoDto } from '../../../interfaces/movimiento-dto';
 import { MaterialModule } from '../../../modules/material/material.module';
 import {MatCardModule} from '@angular/material/card';
-import Swal from 'sweetalert2'
 import { CommonModule } from '@angular/common';
+import { error } from '../../../helpers/toast';
 
 @Component({
   selector: 'app-detalles-del-ahorro',
@@ -28,10 +28,14 @@ export class DetallesDelAhorroComponent {
   }
 
   obtenerAhorro(id: number) {
+    this.estaCargando = true
     this.servicio.ahorro.obtenerPorId(id).subscribe({
       next: (ahorro) => {
         console.log(ahorro)
         this.ahorroDto = ahorro        
+        this.estaCargando = false
+      }, error:(data)=>{
+        error()
       }
     })
   }

@@ -73,27 +73,31 @@ export class DetalleDePeriodoComponent {
     });
   }
 
-  obtenerVersion(id: number) {
+  obtenerPresupuestos(id: number) {
+    this.estaCargando =true
     this.servicio.periodo.obtenerPresupuestos(id).subscribe({
       next: (presupuestos) => {
         //console.log(presupuestos)
         this.presupuestos = presupuestos
         this.dataSource = new MatTableDataSource(this.presupuestos)
+        this.estaCargando = false
       }
     })
   }
 
   constructor(private servicio: GastoService, private activatedRoute: ActivatedRoute) {
+    this.estaCargando = true
     let id = Number(this.activatedRoute.snapshot.paramMap.get('id'))
     this.servicio.periodo.obtenerPorId(id).subscribe({
       next: (data) => {
-        //console.log(data)
-        this.obtenerVersion(data.versionId)
+        //console.log(data)  
+        this.estaCargando = true      
+        this.obtenerPresupuestos(data.versionId)
       }
-    })
+    })    
     this.servicio.ahorro.obtenerAhorroEje().subscribe({
       next: (ahorroEje) => {
-        this.ahorro = ahorroEje
+        this.ahorro = ahorroEje       
       }
     })
   }
@@ -102,7 +106,7 @@ export class DetalleDePeriodoComponent {
   total: number = 0
   presupuestos: PresupuestoDelPeriodoDto[] = []
   dataSource = new MatTableDataSource(this.presupuestos)
-  columnas = ['cantidad', 'subcategoria', 'gastado', 'id']
+  columnas = ['cantidad', 'subcategoria', 'tipoDeAhorro', 'gastado', 'id']
   id: number = 0
   ahorro?: AhorroDto
 }

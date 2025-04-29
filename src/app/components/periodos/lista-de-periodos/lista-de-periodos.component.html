@@ -25,10 +25,10 @@
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef>Acciones</th>
             <td mat-cell *matCellDef="let element">
-                <a mat-mini-fab href="/periodos/{{element.id}}/editar">
+                <a mat-mini-fab [routerLink]="['/', 'periodos',element.id,'editar']">
                     <mat-icon>edit_note</mat-icon>
                 </a>
-                <a mat-mini-fab href="/periodos/{{element.id}}/detalles">
+                <a mat-mini-fab [routerLink]="['/', 'periodos',element.id,'detalles']">
                     <mat-icon>notes</mat-icon>
                 </a>
                 <button mat-mini-fab style="color: red;" (click)="borrar(element)">

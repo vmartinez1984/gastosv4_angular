@@ -5,14 +5,19 @@ import { generarGuid } from '../../../helpers/guid';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MovimientoDtoIn } from '../../../interfaces/movimiento-dto';
 import { GastoService } from '../../../services/gasto.service';
+import { AhorroDto } from '../../../interfaces/ahorro-dto';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-deposito',
-  imports: [MaterialModule, ReactiveFormsModule],
+  imports: [MaterialModule, ReactiveFormsModule, CommonModule],
   templateUrl: './deposito.component.html',
   styleUrl: './deposito.component.css'
 })
 export class DepositoComponent {
+  previsualizarTotal() {    
+    this.subtotal= this.ahorroDto?.balance + this.formGroup.value.cantidad
+  }
 
   guardar() {
     let deposito: MovimientoDtoIn = {
@@ -35,10 +40,10 @@ export class DepositoComponent {
   }
 
   habilitarFormulario(habilitar: boolean) {
-    if(habilitar){
+    if (habilitar) {
       this.formGroup.get('cantidad')?.enable()
       this.formGroup.get('concepto')?.enable()
-    }else{
+    } else {
       this.formGroup.get('cantidad')?.disable()
       this.formGroup.get('concepto')?.disable()
     }
@@ -47,6 +52,8 @@ export class DepositoComponent {
   formGroup: FormGroup
   estaCargando = false
   ahorroId: number = 0
+  ahorroDto?: AhorroDto 
+  subtotal= 0 
 
   constructor(private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute, private servicio: GastoService, private router: Router) {
     this.ahorroId = Number(this.activatedRoute.snapshot.paramMap.get('id'))
@@ -54,6 +61,12 @@ export class DepositoComponent {
       referencia: generarGuid(),
       cantidad: ['', Validators.required],
       concepto: ['', Validators.required]
+    })
+    this.servicio.ahorro.obtenerPorId(this.ahorroId).subscribe({
+      next: (ahorro) => {
+        this.ahorroDto = ahorro    
+        this.subtotal = ahorro.balance    
+      }
     })
   }
 }

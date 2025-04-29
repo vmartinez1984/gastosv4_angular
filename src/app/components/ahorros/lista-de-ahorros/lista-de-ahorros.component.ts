@@ -2,15 +2,16 @@ import { Component, PipeTransform } from '@angular/core';
 import { GastoService } from '../../../services/gasto.service';
 import { AhorroDto } from '../../../interfaces/ahorro-dto';
 import { MaterialModule } from '../../../modules/material/material.module';
-import { MatSort, Sort, MatSortModule } from '@angular/material/sort';
+import { MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 import { error, unMomento } from '../../../helpers/toast';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-lista-de-ahorros',
-  imports: [MaterialModule, MatSortModule, CommonModule],
+  imports: [MaterialModule, MatSortModule, CommonModule, RouterModule],
   templateUrl: './lista-de-ahorros.component.html',
   styleUrl: './lista-de-ahorros.component.css'
 })
@@ -25,10 +26,10 @@ export class ListaDeAhorrosComponent {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        unMomento()        
+        unMomento()
         this.servicio.ahorro.borrar(ahorro.id).subscribe({
           next: (data) => {
-            let index = this.ahorros.findIndex(x => x.id == ahorro.id)            
+            let index = this.ahorros.findIndex(x => x.id == ahorro.id)
             this.ahorros.splice(index, 1)
             this.dataSource = new MatTableDataSource(this.ahorros)
             Swal.fire({
@@ -40,7 +41,7 @@ export class ListaDeAhorrosComponent {
               timer: 1500
             });
           },
-          error:(data)=>{
+          error: (data) => {
             console.log(data)
             error()
           }

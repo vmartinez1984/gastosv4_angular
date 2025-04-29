@@ -6,10 +6,11 @@ import { MatTableDataSource } from '@angular/material/table';
 import Swal from 'sweetalert2';
 import { MaterialModule } from '../../../modules/material/material.module';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-lista-de-periodos',
-  imports: [MaterialModule, CommonModule],
+  imports: [MaterialModule, CommonModule, RouterModule],
   templateUrl: './lista-de-periodos.component.html',
   styleUrl: './lista-de-periodos.component.css'
 })

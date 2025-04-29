@@ -8,10 +8,11 @@ import { MatButtonModule } from '@angular/material/button'
 import { CategoriaDto } from '../../../interfaces/categoria-dto'
 import Swal from 'sweetalert2'
 import { error, unMomento } from '../../../helpers/toast'
+import { CommonModule } from '@angular/common'
 
 @Component({
   selector: 'app-lista-de-subcategorias',
-  imports: [MatTableModule, MatIconModule, MatProgressSpinnerModule, MatButtonModule],
+  imports: [MatTableModule, MatIconModule, MatProgressSpinnerModule, MatButtonModule, CommonModule],
   templateUrl: './lista-de-subcategorias.component.html',
   styleUrl: './lista-de-subcategorias.component.css'
 })
@@ -20,6 +21,7 @@ export class ListaDeSubcategoriasComponent {
   subcategorias: SubcategoriaDto[] = []
   estaCargando = false
   dataSource = new MatTableDataSource(this.subcategorias)
+  total = 0
 
   constructor(private servicio: GastoService) {
     this.obtenerTodos()
@@ -32,7 +34,7 @@ export class ListaDeSubcategoriasComponent {
         //console.log(subcategorias)
         this.subcategorias = subcategorias
         this.dataSource = new MatTableDataSource(this.subcategorias)
-        this.estaCargando = false
+        this.estaCargando = false        
       }
     })
   }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, Version } from '@angular/core';
 import { MaterialModule } from '../../../../modules/material/material.module';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { GastoService } from '../../../../services/gasto.service';
@@ -29,10 +29,11 @@ export class FormularioDePresupuestoComponent {
   guardar() {
     if (this.formGroup.valid) {
       let presupuesto: PresupuestoDtoIn = {
-        ahorroId: this.formGroup.value.ahorroId,
+        ahorroId: this.formGroup.value.ahorroId == '' || this.formGroup.value.ahorroId == 0 ? null : this.formGroup.value.ahorroId,
         cantidad: this.formGroup.value.cantidad,
         guid: this.formGroup.value.guid,
-        subcategoriaId: this.formGroup.value.subcategoriaId
+        subcategoriaId: this.formGroup.value.subcategoriaId,
+        versionId: this.formGroup.value.versionId,
       }
       this.presupuestoEvenEmitter.emit(presupuesto)
     }
@@ -49,14 +50,15 @@ export class FormularioDePresupuestoComponent {
   @Output() presupuestoEvenEmitter = new EventEmitter<PresupuestoDtoIn>()
 
   constructor(private formBuilder: FormBuilder, private servicio: GastoService) {
+    this.obtenerSubcategorias()
+    this.obtenerAhorros()
     this.formGroup = this.formBuilder.group({
       subcategoriaId: ['', Validators.required],
       cantidad: ['', Validators.required],
       guid: generarGuid(),
-      ahorroId: ['', Validators.required]
+      ahorroId: ['0'],
+      versionId: ''
     })
-    this.obtenerSubcategorias()
-    this.obtenerAhorros()
   }
 
   ngOnChanges() {
@@ -65,8 +67,11 @@ export class FormularioDePresupuestoComponent {
         subcategoriaId: this.presupuestoDtoIn.subcategoriaId.toString(),
         cantidad: this.presupuestoDtoIn.cantidad,
         guid: this.presupuestoDtoIn.guid,
-        ahorroId: this.presupuestoDtoIn.ahorroId.toString()
+        ahorroId: this.presupuestoDtoIn.ahorroId?.toString(),
+        versionId: this.presupuestoDtoIn.versionId
       })
+      this.subcategoriaSeleccionada = this.subcategorias.find(x => x.id == this.presupuestoDtoIn?.subcategoriaId)
+      this.ahorroSeleccionado = this.ahorros.find(x => x.id == this.presupuestoDtoIn?.ahorroId)
     }
 
     if (this.estaCargando) {

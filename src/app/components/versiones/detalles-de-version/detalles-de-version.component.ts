@@ -27,7 +27,7 @@ borrar(presupuesto: any) {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         unMomento()
-        this.servicio.version.borrarPresupuesto(this.versionDto?.id, presupuesto.id).subscribe({
+        this.servicio.presupuesto.borrarPresupuesto(this.versionDto?.id, presupuesto.id).subscribe({
           next: (data) => {
             let index = this.presupuestos.findIndex(x => x.id == presupuesto.id)
             console.log(index)
