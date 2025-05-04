@@ -18,8 +18,13 @@ import { ListaDePeriodosComponent } from './components/periodos/lista-de-periodo
 import { AgregarPeriodoComponent } from './components/periodos/agregar-periodo/agregar-periodo.component';
 import { EditarPeriodoComponent } from './components/periodos/editar-periodo/editar-periodo.component';
 import { DetalleDePeriodoComponent } from './components/periodos/detalle-de-periodo/detalle-de-periodo.component';
+import { InicioComponent } from './components/inicio/inicio.component';
+import { InicioDeSesionComponent } from './modules/inicio-de-sesion/inicio-de-sesion-component/inicio-de-sesion.component';
+import { SesionGuard } from './modules/inicio-de-sesion/services/sesion-guard';
 
 export const routes: Routes = [
+    { path: "", component: InicioComponent, canActivate: [SesionGuard] },
+    { path: "inicioDeSesion", component: InicioDeSesionComponent },
     { path: "subcategorias", component: ListaDeSubcategoriasComponent },
     { path: "subcategorias/agregar", component: AgregarSubcategoriaComponent },
     { path: "subcategorias/editar/:id", component: EditarSubcategoriaComponent },

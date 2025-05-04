@@ -11,9 +11,9 @@
             {{ahorroDto?.fechaFinal}} -->
         </mat-card-content>
         <mat-card-actions>
-            <a mat-button href="/ahorros/{{ahorroDto?.id}}/depositar">Depositar</a>
-            <a mat-button href="/ahorros/{{ahorroDto?.id}}/retirar">Retirar</a>
-            <a href="ahorros">Atras</a>
+            <a mat-button [routerLink]="['/','ahorros', ahorroDto?.id, 'depositar']">Depositar</a>
+            <a mat-button [routerLink]="['/','ahorros', ahorroDto?.id, 'retirar']">Retirar</a>
+            <a [routerLink]="['/','ahorros']">Ahorros</a>
           </mat-card-actions>
     </mat-card>
     <br/>

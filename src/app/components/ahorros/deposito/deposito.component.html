@@ -9,7 +9,9 @@
     <form [formGroup]="formGroup" (submit)="guardar()" >
         <mat-form-field appearance="outline">
             <mat-label>Cantidad</mat-label>
-            <input matInput formControlName="cantidad" type="number" min="1" step="1" (change)="previsualizarTotal()" (keypress)="previsualizarTotal()">
+            <input matInput formControlName="cantidad" class="example-right-align" type="number" min="1" step="1" (change)="previsualizarTotal()" (keypress)="previsualizarTotal()" placeholder="0">
+            <span matTextPrefix>$&nbsp;</span>
+    <!-- <span matTextSuffix>.00</span> -->
         </mat-form-field>
         <mat-card>
             <mat-card-content>

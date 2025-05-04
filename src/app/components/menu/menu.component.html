@@ -1,0 +1,9 @@
+@if(estaIniciadaLaSesion()){
+    <mat-toolbar color="primary">
+        <a [routerLink]="['ahorros']" mat-button>Ahorros</a>
+        <a [routerLink]="['subcategorias']" mat-button>Subcategorias</a>
+        <a [routerLink]="['versiones']" mat-button>Versiones</a>
+        <a [routerLink]="['periodos']" mat-button>Periodos</a>
+        <button mat-button (click)="cerrarSesion()">Cerrar sesión</button>
+    </mat-toolbar>    
+}

@@ -50,9 +50,11 @@
                 <button mat-mini-fab (click)="mostrarFormulario(element)">
                     <mat-icon>local_atm</mat-icon>
                 </button>
-                <a mat-mini-fab href="/ahorros/{{element.ahorroId}}/detalles">
-                    <mat-icon>savings</mat-icon>
-                </a>
+                @if(element.tipoDeAhorro != null){
+                    <a mat-mini-fab href="/ahorros/{{element.ahorroId}}/detalles">
+                        <mat-icon>savings</mat-icon>
+                    </a>
+                }
             </td>
         </ng-container>
 

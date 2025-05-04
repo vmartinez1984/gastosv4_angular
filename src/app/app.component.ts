@@ -1,16 +1,18 @@
 import { Component } from '@angular/core'
-import { RouterModule, RouterOutlet } from '@angular/router'
-import { MatMenuModule } from '@angular/material/menu'
-import { MatButtonModule } from '@angular/material/button'
-import { CdkMenuModule } from '@angular/cdk/menu'
-import { MatToolbarModule } from '@angular/material/toolbar'
+import { RouterOutlet } from '@angular/router'
+import { MenuComponent } from "./components/menu/menu.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, MatButtonModule, MatMenuModule, CdkMenuModule, MatToolbarModule, RouterModule],
+  imports: [RouterOutlet, MenuComponent, MenuComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
+
+cerrarSesion() {
+
+}
+
   title = 'gastosv4_angular';
 }

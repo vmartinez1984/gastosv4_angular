@@ -54,6 +54,7 @@ export class ListaDeAhorrosComponent {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
   ahorros: AhorroDto[] = []
   estaCargando = false
   dataSource = new MatTableDataSource(this.ahorros)
@@ -70,6 +71,11 @@ export class ListaDeAhorrosComponent {
         this.ahorros.forEach(item => {
           this.total = this.total + item.balance
         })
+      },
+      error:(data)=>{
+        console.log(data)
+        this.estaCargando = false
+        error()
       }
     })
   }

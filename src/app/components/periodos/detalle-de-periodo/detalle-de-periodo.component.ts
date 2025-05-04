@@ -77,7 +77,7 @@ export class DetalleDePeriodoComponent {
     this.estaCargando =true
     this.servicio.periodo.obtenerPresupuestos(id).subscribe({
       next: (presupuestos) => {
-        //console.log(presupuestos)
+        console.log(presupuestos)
         this.presupuestos = presupuestos
         this.dataSource = new MatTableDataSource(this.presupuestos)
         this.estaCargando = false

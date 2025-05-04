@@ -43,7 +43,7 @@ import { MatCardModule } from '@angular/material/card'
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatChipsModule,
-    //MatSortModule,
+    MatSortModule,
     MatCardModule
   ]
 })
