@@ -1,7 +1,7 @@
 <div class="container">
 
     <h1>Lista de ahorros</h1>
-    <a [routerLink]="['ahorros','agregar']">Agregar nuevo</a>
+    <a [routerLink]="['/','ahorros','agregar']">Agregar nuevo</a>
     <p>{{total | currency}}</p>
 
     <!-- @if(estaCargando){
@@ -10,8 +10,8 @@
     </div>
     } -->
     <mat-form-field>
-        <mat-label>Filter</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+        <mat-label>Filtrar</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
     </mat-form-field>
 
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
@@ -22,7 +22,7 @@
 
         <ng-container matColumnDef="tipoDeAhorro">
             <th mat-header-cell *matHeaderCellDef>Presupuesto</th>
-            <td mat-cell *matCellDef="let element">{{element.tipoDeAhorro?.nombre}}</td>
+            <td mat-cell *matCellDef="let element">{{element.tipoDeAhorroNombre}}</td>
         </ng-container>
 
         <ng-container matColumnDef="balance">

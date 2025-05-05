@@ -9,6 +9,7 @@ export interface AhorroDto {
     fechaInicial: Date
     fechaFinal: Date
     tipoDeAhorro?: TipoDeAhorro
+    tipoDeAhorroNombre: string
 }
 
 export interface TipoDeAhorro{
