@@ -15,6 +15,7 @@ import { Router } from '@angular/router'
 export class InicioDeSesionComponent {
   formGroup: FormGroup
   private _snackBar = inject(MatSnackBar)
+  estaCargando= false
 
   constructor(private servicio: SesionService, private formBuilder: FormBuilder, private router: Router) {
     this.formGroup = this.formBuilder.group({
@@ -29,6 +30,7 @@ export class InicioDeSesionComponent {
         usuario: this.formGroup.value.usuario,
         contraseña: this.formGroup.value.contraseña
       }
+      this.estaCargando = true
       this.servicio.iniciarSesion(inicioDeSesion).subscribe({
         next: (token) => {
           //console.log(token)
@@ -37,12 +39,14 @@ export class InicioDeSesionComponent {
           this._snackBar.open("Bienvenido "+ this.servicio.obtenerNombre(), "", {
             duration: 3000
           })
+          this.estaCargando = false
         },
         error: (data) => {
           console.log(data)
           this._snackBar.open("Ocurrio un error", "valio pepino", {
             duration: 3000
           })
+          this.estaCargando = false
         }
       })
     }
