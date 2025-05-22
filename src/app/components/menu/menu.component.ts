@@ -17,10 +17,12 @@ export class MenuComponent {
   cerrarSesion() {
     this.servicio.cerrarSesion()    
     this.router.navigate(['/','inicioDeSesion'])
-
   }
 
   estaIniciadaLaSesion(): boolean {
+    if(!this.servicio.estaIniciadaLaSesion()){
+      this.router.navigate(['/','inicioDeSesion'])
+    }
     return this.servicio.estaIniciadaLaSesion()
   }
 

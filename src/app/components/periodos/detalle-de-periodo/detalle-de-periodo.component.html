@@ -55,7 +55,7 @@
                     <mat-icon>local_atm</mat-icon>
                 </button>
                 @if(element.tipoDeAhorro != null){
-                <a mat-mini-fab href="/ahorros/{{element.ahorroId}}/detalles">
+                <a mat-mini-fab [routerLink]="['/','ahorros', element.ahorroId, 'detalles']">
                     <mat-icon>savings</mat-icon>
                 </a>
                 }

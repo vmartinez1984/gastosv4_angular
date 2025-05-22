@@ -9,10 +9,11 @@ import { CategoriaDto } from '../../../interfaces/categoria-dto'
 import Swal from 'sweetalert2'
 import { error, unMomento } from '../../../helpers/toast'
 import { CommonModule } from '@angular/common'
+import { RouterModule } from '@angular/router'
 
 @Component({
   selector: 'app-lista-de-subcategorias',
-  imports: [MatTableModule, MatIconModule, MatProgressSpinnerModule, MatButtonModule, CommonModule],
+  imports: [MatTableModule, MatIconModule, MatProgressSpinnerModule, MatButtonModule, CommonModule, RouterModule],
   templateUrl: './lista-de-subcategorias.component.html',
   styleUrl: './lista-de-subcategorias.component.css'
 })
