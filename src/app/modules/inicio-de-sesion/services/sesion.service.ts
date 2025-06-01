@@ -36,7 +36,7 @@ export class SesionService {
         this.cerrarSesion()
         return false
       }
-      //console.log("Sesion iniciada")
+      console.log("Sesion iniciada")
       return true
     }
   }

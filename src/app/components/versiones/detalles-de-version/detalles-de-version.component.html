@@ -2,7 +2,7 @@
 
     <h1>Detalle de la version</h1>
     <p>{{total | currency}}</p>
-    <a href="versiones/{{id}}/presupuestos/agregar">Agregar presupuesto</a>
+    <a [routerLink]="['/','versiones', id,'presupuestos','agregar']">Agregar presupuesto</a>
 
     @if(estaCargando){
         <div class="text-aling-center">
@@ -33,7 +33,7 @@
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element">
-                <a mat-mini-fab href="versiones/{{id}}/presupuestos/{{element.id}}/editar">
+                <a mat-mini-fab [routerLink]="['/','versiones',id, 'presupuestos',element.id,'editar']">
                     <mat-icon>edit_note</mat-icon>
                 </a>
                 <!-- <a mat-mini-fab href="/versiones/{{element.id}}/detalles">

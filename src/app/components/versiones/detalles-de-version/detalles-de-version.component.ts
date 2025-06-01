@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { VersionDto } from '../../../interfaces/version-dto';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { GastoService } from '../../../services/gasto.service';
 import { PresupuestoDto } from '../../../interfaces/presupuesto-dto';
 import { MatTableDataSource } from '@angular/material/table';
@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-detalles-de-version',
-  imports: [MaterialModule, CommonModule],
+  imports: [MaterialModule, CommonModule, RouterModule],
   templateUrl: './detalles-de-version.component.html',
   styleUrl: './detalles-de-version.component.css'
 })
