@@ -27,3 +27,5 @@ npx angular-cli-ghpages --dir=dist/gastosv4_angular/browser
 [] Cuando la transaccion falle indicar esto
 [] Agregar filtro en detalles de periodo
 [] Colocar color a cantidad en periodo detalles
+[] Revisar /versiones/2/detalles elimina el tipo de ahorro
+[] Agregar filtro

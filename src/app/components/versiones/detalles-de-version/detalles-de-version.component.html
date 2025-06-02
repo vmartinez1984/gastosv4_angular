@@ -2,7 +2,7 @@
 
     <h1>Detalle de la version</h1>
     <p>{{total | currency}}</p>
-    <a href="versiones/{{id}}/presupuestos/agregar">Agregar presupuesto</a>
+    <a [routerLink]="['/','versiones', id,'presupuestos','agregar']">Agregar presupuesto</a>
 
     @if(estaCargando){
     <div class="text-aling-center">
