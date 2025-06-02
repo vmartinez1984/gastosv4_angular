@@ -23,12 +23,13 @@ export class DetalleDePeriodoComponent {
   }
 
   async mostrarFormulario(presupuesto: PresupuestoDelPeriodoDto) {
+    console.log(presupuesto)
     const dialogRef = this.dialog.open(FormularioDeMovimientoComponent, {
-      data: {presupuesto, cantidad: this.cantida()}
+      data: { presupuesto, cantidad: this.cantida() }
     })
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(dialogRef.componentInstance.data)      
+      console.log(dialogRef.componentInstance.data)
       if (this.ahorro?.balance)
         this.ahorro.balance = Number(this.ahorro.balance) - Number(dialogRef.componentInstance.data.cantidad)
       let presupuestoAActualizar = this.presupuestos.find(x => x.presupuestoId == presupuesto?.presupuestoId)
@@ -46,6 +47,10 @@ export class DetalleDePeriodoComponent {
         this.presupuestos = presupuestos
         this.dataSource = new MatTableDataSource(this.presupuestos)
         this.estaCargando = false
+        this.gastado = 0
+        this.presupuestos.forEach(item =>{
+          this.gastado = this.gastado + item.gastado
+        })
       }
     })
   }
@@ -68,6 +73,7 @@ export class DetalleDePeriodoComponent {
     })
     this.servicio.ahorro.obtenerAhorroEje().subscribe({
       next: (ahorroEje) => {
+        //console.log(ahorroEje)
         this.ahorro = ahorroEje
       }
     })
@@ -75,16 +81,17 @@ export class DetalleDePeriodoComponent {
 
   estaCargando = false
   total: number = 0
+  gastado: number = 0
   presupuestos: PresupuestoDelPeriodoDto[] = []
   dataSource = new MatTableDataSource(this.presupuestos)
   columnas = ['cantidad', 'subcategoria', 'tipoDeAhorro', 'gastado', 'id']
   readonly dialog = inject(MatDialog);
   id: number = 0
   ahorro?: AhorroDto
-  readonly cantida = signal('')  
+  readonly cantida = signal('')
 }
 
-export interface DialogData{
+export interface DialogData {
   presupuesto: PresupuestoDelPeriodoDto,
   cantidad: number
 }

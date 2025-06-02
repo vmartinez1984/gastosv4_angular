@@ -6,10 +6,11 @@ import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 import { error, unMomento } from '../../../helpers/toast';
 import { MatTableDataSource } from '@angular/material/table';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-lista-de-versiones',
-  imports: [MaterialModule, CommonModule],
+  imports: [MaterialModule, CommonModule, RouterModule],
   templateUrl: './lista-de-versiones.component.html',
   styleUrl: './lista-de-versiones.component.css'
 })

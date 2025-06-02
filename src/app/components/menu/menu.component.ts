@@ -20,9 +20,9 @@ export class MenuComponent {
   }
 
   estaIniciadaLaSesion(): boolean {
-    if(!this.servicio.estaIniciadaLaSesion()){
-      this.router.navigate(['/','inicioDeSesion'])
-    }
+    // if(!this.servicio.estaIniciadaLaSesion()){
+    //   this.router.navigate(['/','inicioDeSesion'])
+    // }
     return this.servicio.estaIniciadaLaSesion()
   }
 

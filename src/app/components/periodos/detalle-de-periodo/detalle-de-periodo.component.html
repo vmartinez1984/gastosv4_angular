@@ -4,6 +4,8 @@
     <mat-card>
         <mat-card-header>
             Total de entradas: {{ahorro?.balance | currency }}
+            <br/>
+            Gastado: {{ gastado | currency }}
         </mat-card-header>
     </mat-card>
     <br />
@@ -35,7 +37,13 @@
         <ng-container matColumnDef="gastado">
             <th mat-header-cell *matHeaderCellDef>Gastado</th>
             <td mat-cell *matCellDef="let element">
-                {{element.gastado | currency}}
+                @if(element.gastado == 0){
+                    <span class="text-success">{{element.gastado | currency}}</span>
+                }@else if(element.gastado > element.cantidad){
+                    <span class="text-danger">{{element.gastado | currency}}</span>    
+                }@else {
+                    {{element.gastado | currency}}
+                }
             </td>
         </ng-container>
 

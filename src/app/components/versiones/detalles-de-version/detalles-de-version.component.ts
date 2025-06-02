@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { VersionDto } from '../../../interfaces/version-dto';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { GastoService } from '../../../services/gasto.service';
 import { PresupuestoDto } from '../../../interfaces/presupuesto-dto';
 import { MatTableDataSource } from '@angular/material/table';
@@ -11,11 +11,20 @@ import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-detalles-de-version',
-  imports: [MaterialModule, CommonModule],
+  imports: [MaterialModule, CommonModule, RouterModule],
   templateUrl: './detalles-de-version.component.html',
   styleUrl: './detalles-de-version.component.css'
 })
 export class DetallesDeVersionComponent {
+applyFilter(event: Event) {
+ const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    //console.log(this.dataSource.filteredData)
+    this.total = 0;
+    this.dataSource.filteredData.forEach(item => {
+      this.total += item.cantidad
+    })
+}
 borrar(presupuesto: any) {
     Swal.fire({
       title: "¿Desea borrar el presupuesto?",
@@ -57,7 +66,7 @@ borrar(presupuesto: any) {
   total: number = 0
   presupuestos: PresupuestoDto[] = []
   dataSource = new MatTableDataSource(this.presupuestos)
-  columnas= ['cantidad', 'subcategoria','ahorro tipo','id']
+  columnas= ['cantidad', 'subcategoria','id']
   id : number = 0
 
   constructor(private activatedRoute: ActivatedRoute, private servicio: GastoService, private router: Router) {
@@ -65,7 +74,7 @@ borrar(presupuesto: any) {
     this.estaCargando = true
     this.servicio.version.obtenerPorId(this.id).subscribe({
       next: (version) => {
-        console.log(version)
+        //console.log(version)
         this.versionDto = version
         this.estaCargando = false
       }
@@ -73,7 +82,7 @@ borrar(presupuesto: any) {
     this.servicio.version.obtenerPresupuestos(this.id).subscribe({
       next: (data) => {
         this.presupuestos = data
-        console.log(this.presupuestos)
+        //console.log(this.presupuestos)
         this.dataSource = new MatTableDataSource(this.presupuestos)
         this.presupuestos.forEach(item=>{
           this.total += item.cantidad
