@@ -19,6 +19,7 @@ npx angular-cli-ghpages --dir=dist/gastosv4_angular/browser
 - [X] Set loader before charge periods -> https://vmartinez1984.github.io/gastosv4_angular/#/periodos     21/05/2025
 - [X] Ordenar los periodos por el mas nuevo                                                               21/05/2025
 - [ ] Corregir el borrado de detalles de la version -> https://vmartinez1984.github.io/gastosv4_angular/#/versiones/4/detalles
+- [ ] Lista de detalles, agregar columna mensual y quincenal.
 - [ ] Cambiar el sweet alert de formulario por el nativo de material
 - [ ] Corregir el enlace de agregar nuevo o cambiarlo por el dialog material
 - [ ] Colocar el loader https://vmartinez1984.github.io/gastosv4_angular/#/ahorros/detalles/39
