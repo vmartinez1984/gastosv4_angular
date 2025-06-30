@@ -16,16 +16,17 @@ npx angular-cli-ghpages --dir=dist/gastosv4_angular/browser
 
 # todo
 
-[X] Set loader before charge periods -> https://vmartinez1984.github.io/gastosv4_angular/#/periodos     21/05/2025
-[X] Ordenar los periodos por el mas nuevo                                                               21/05/2025
-[] Cambiar el sweet alert de formulario por el nativo de material
-[] Corregir el enlace de agregar nuevo o cambiarlo por el dialog material
-[] Colocar el loader https://vmartinez1984.github.io/gastosv4_angular/#/ahorros/detalles/39
-[] Actualizar el total despues de agregar un gasto en el detalle del periodo
-[] Redireccionar cuando se acabe la sesion
-[] Revisar el login, cuando sea 404, agregar loader y bloquear form
-[] Cuando la transaccion falle indicar esto
-[] Agregar filtro en detalles de periodo
-[] Colocar color a cantidad en periodo detalles
-[] Revisar /versiones/2/detalles elimina el tipo de ahorro
-[] Agregar filtro
+- [X] Set loader before charge periods -> https://vmartinez1984.github.io/gastosv4_angular/#/periodos     21/05/2025
+- [X] Ordenar los periodos por el mas nuevo                                                               21/05/2025
+- [ ] Corregir el borrado de detalles de la version -> https://vmartinez1984.github.io/gastosv4_angular/#/versiones/4/detalles
+- [] Cambiar el sweet alert de formulario por el nativo de material
+- [] Corregir el enlace de agregar nuevo o cambiarlo por el dialog material
+- [] Colocar el loader https://vmartinez1984.github.io/gastosv4_angular/#/ahorros/detalles/39
+- [] Actualizar el total despues de agregar un gasto en el detalle del periodo
+- [] Redireccionar cuando se acabe la sesion
+- [] Revisar el login, cuando sea 404, agregar loader y bloquear form
+- [] Cuando la transaccion falle indicar esto
+- [] Agregar filtro en detalles de periodo
+- [] Colocar color a cantidad en periodo detalles
+- [] Revisar /versiones/2/detalles elimina el tipo de ahorro
+- [] Agregar filtro
