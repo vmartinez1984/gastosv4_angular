@@ -21,6 +21,7 @@ import { DetalleDePeriodoComponent } from './components/periodos/detalle-de-peri
 import { InicioComponent } from './components/inicio/inicio.component';
 import { InicioDeSesionComponent } from './modules/inicio-de-sesion/inicio-de-sesion-component/inicio-de-sesion.component';
 import { SesionGuard } from './modules/inicio-de-sesion/services/sesion-guard';
+import { ListaDeComprasComponent } from './components/tdc/compras/lista-de-compras/lista-de-compras.component';
 
 export const routes: Routes = [
     { path: "", component: InicioComponent, canActivate: [SesionGuard] },
@@ -45,4 +46,5 @@ export const routes: Routes = [
     { path: "periodos/agregar", component: AgregarPeriodoComponent, canActivate: [SesionGuard] },
     { path: "periodos/:id/editar", component: EditarPeriodoComponent,canActivate: [SesionGuard] },
     { path: "periodos/:id/detalles", component: DetalleDePeriodoComponent, canActivate: [SesionGuard] },
+    { path: "tdc", component: ListaDeComprasComponent}
 ];
