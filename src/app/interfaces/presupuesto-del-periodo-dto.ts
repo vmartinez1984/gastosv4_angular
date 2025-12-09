@@ -6,4 +6,5 @@ export interface PresupuestoDelPeriodoDto {
     ahorroId: number
     gastado: number
     subcategoriaNombre: string
+    subcategoriaId: number
 }

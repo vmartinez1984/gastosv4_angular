@@ -1,58 +1,69 @@
 <form [formGroup]="formGroup" (submit)="guardar()">
-    <mat-form-field appearance="outline">
-        <mat-label>Cantidad</mat-label>
-        <input matInput formControlName="cantidad" type="number" min="1">
-    </mat-form-field>  
+  <mat-form-field appearance="outline">
+    <mat-label>Cantidad</mat-label>
+    <input matInput formControlName="cantidad" type="number" min="1" />
+  </mat-form-field>
 
-    <br />
-    <mat-form-field appearance="outline">
-        <mat-label>Subcategoria</mat-label>
-        <mat-select formControlName="subcategoriaId" (selectionChange)="mostrarSubcategoria($event)">
-            @for (item of subcategorias; track $index) {
-                <mat-option value="{{item.id}}">{{item.nombre}}</mat-option>
-            }
-        </mat-select>
-    </mat-form-field>
+  <br />
+  <mat-form-field appearance="outline">
+    <mat-label>Subcategoria</mat-label>
+    <mat-select
+      formControlName="subcategoriaId"
+      (selectionChange)="mostrarSubcategoria($event)"
+    >
+      @for (item of subcategorias; track $index) {
+      <mat-option value="{{ item.id }}">{{ item.nombre }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
 
-    <mat-card>
-        <mat-card-header>
-            {{subcategoriaSeleccionada?.nombre}}
-        </mat-card-header>
-        <mat-card-content>
-            {{subcategoriaSeleccionada?.presupuesto| currency}}           
-        </mat-card-content>
-    </mat-card>
+  <mat-card>
+    <mat-card-header>
+      {{ subcategoriaSeleccionada?.nombre }}
+    </mat-card-header>
+    <mat-card-content>
+      {{ subcategoriaSeleccionada?.presupuesto | currency }}
+    </mat-card-content>
+  </mat-card>
 
-    <br />
-    <mat-form-field appearance="outline">
-        <mat-label>Ahorro</mat-label>
-        <mat-select formControlName="ahorroId" (selectionChange)="mostrarAhorro($event)">
-            <mat-option value="0">Seleccione</mat-option>
-            @for (item of ahorros; track $index) {
-            <mat-option value="{{item.id}}">{{item.nombre}}</mat-option>
-            }
-        </mat-select>
-    </mat-form-field>
-    <mat-card>
-        <mat-card-header>
-            {{ahorroSeleccionado?.nombre}}
-        </mat-card-header>
-        <mat-card-content>
-            {{ahorroSeleccionado?.balance | currency}}
-            <br/>
-            {{ahorroSeleccionado?.tipoDeAhorro?.nombre}}            
-        </mat-card-content>
-    </mat-card>
-    
-    <br />
-    @if(estaCargando){
-    <button mat-fab extended color="primary" type="submit" [disabled]="estaCargando">
-        <mat-spinner [diameter]="20"></mat-spinner>
-    </button>
-    Un momento ...
-    }@else {
-    <button mat-fab extended color="primary" type="submit">
-        <mat-icon>save</mat-icon> Guardar
-    </button>
-    }
+  <br />
+  <mat-form-field appearance="outline">
+    <mat-label>Ahorro</mat-label>
+    <mat-select
+      formControlName="ahorroId"
+      (selectionChange)="mostrarAhorro($event)"
+    >
+      <mat-option value="0">Seleccione</mat-option>
+      @for (item of ahorros; track $index) {
+      <mat-option value="{{ item.id }}">{{ item.nombre }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-card>
+    <mat-card-header>
+      {{ ahorroSeleccionado?.nombre }}
+    </mat-card-header>
+    <mat-card-content>
+      {{ ahorroSeleccionado?.balance | currency }}
+      <br />
+      {{ ahorroSeleccionado?.tipoDeAhorroNombre }}
+    </mat-card-content>
+  </mat-card>
+
+  <br />
+  @if(estaCargando){
+  <button
+    mat-fab
+    extended
+    color="primary"
+    type="submit"
+    [disabled]="estaCargando"
+  >
+    <mat-spinner [diameter]="20"></mat-spinner>
+  </button>
+  Un momento ... }@else {
+  <button mat-fab extended color="primary" type="submit">
+    <mat-icon>save</mat-icon> Guardar
+  </button>
+  }
 </form>

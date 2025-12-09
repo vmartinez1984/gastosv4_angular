@@ -15,13 +15,13 @@ import { CommonModule } from '@angular/common';
   styleUrl: './deposito.component.css'
 })
 export class DepositoComponent {
-  previsualizarTotal() {    
+  previsualizarTotal() {
     this.subtotal= this.ahorroDto?.balance + this.formGroup.value.cantidad
   }
 
   guardar() {
     let deposito: MovimientoDtoIn = {
-      cantidad: this.formGroup.value.cantidad,
+      monto: this.formGroup.value.cantidad,
       concepto: this.formGroup.value.concepto,
       referencia: this.formGroup.value.referencia
     }
@@ -52,8 +52,8 @@ export class DepositoComponent {
   formGroup: FormGroup
   estaCargando = false
   ahorroId: number = 0
-  ahorroDto?: AhorroDto 
-  subtotal= 0 
+  ahorroDto?: AhorroDto
+  subtotal= 0
 
   constructor(private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute, private servicio: GastoService, private router: Router) {
     this.ahorroId = Number(this.activatedRoute.snapshot.paramMap.get('id'))
@@ -64,8 +64,8 @@ export class DepositoComponent {
     })
     this.servicio.ahorro.obtenerPorId(this.ahorroId).subscribe({
       next: (ahorro) => {
-        this.ahorroDto = ahorro    
-        this.subtotal = ahorro.balance    
+        this.ahorroDto = ahorro
+        this.subtotal = ahorro.balance
       }
     })
   }

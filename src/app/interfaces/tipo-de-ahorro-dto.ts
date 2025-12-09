@@ -1,4 +1,4 @@
 export interface TipoDeAhorroDto {
     id: number
-    nombre: number
+    nombre: string
 }

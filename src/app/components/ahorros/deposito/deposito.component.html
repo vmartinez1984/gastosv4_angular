@@ -1,42 +1,58 @@
 <div class="container">
+  <mat-card>
+    <mat-card-content>
+      Total: {{ ahorroDto?.balance | currency }}
+    </mat-card-content>
+  </mat-card>
+
+  <br />
+  <form [formGroup]="formGroup" (submit)="guardar()">
+    <mat-form-field appearance="outline">
+      <mat-label>Cantidad</mat-label>
+      <input
+        matInput
+        formControlName="cantidad"
+        class="example-right-align"
+        type="number"
+        min="1"
+        step="1"
+        (change)="previsualizarTotal()"
+        (keypress)="previsualizarTotal()"
+        (keyup)="previsualizarTotal()"
+        placeholder="0"
+      />
+      <span matTextPrefix>$&nbsp;</span>
+    </mat-form-field>
+
     <mat-card>
-        <mat-card-content>
-            Total: {{ahorroDto?.balance | currency}}
-        </mat-card-content>
+      <mat-card-content>
+        {{ subtotal | currency }}
+      </mat-card-content>
     </mat-card>
 
-    <br/>
-    <form [formGroup]="formGroup" (submit)="guardar()" >
-        <mat-form-field appearance="outline">
-            <mat-label>Cantidad</mat-label>
-            <input matInput formControlName="cantidad" class="example-right-align" type="number" min="1" step="1" (change)="previsualizarTotal()" (keypress)="previsualizarTotal()" placeholder="0">
-            <span matTextPrefix>$&nbsp;</span>
-    <!-- <span matTextSuffix>.00</span> -->
-        </mat-form-field>
-        <mat-card>
-            <mat-card-content>
-                {{subtotal | currency}}
-            </mat-card-content>
-        </mat-card>
+    <br />
+    <mat-form-field appearance="outline">
+      <mat-label>Concepto</mat-label>
+      <input matInput formControlName="concepto" />
+    </mat-form-field>
 
-        <br />
-        <mat-form-field appearance="outline">
-            <mat-label>Concepto</mat-label>
-            <input matInput formControlName="concepto">
-        </mat-form-field>
-        
-        <br />
-        @if(estaCargando){
-            <button mat-fab extended color="primary" type="submit" [disabled]="estaCargando">
-                <mat-spinner [diameter]="20"></mat-spinner>
-            </button>
-            Un momento ...
-        }@else {
-            <button mat-fab extended color="primary" type="submit">
-                <mat-icon>save</mat-icon> Guardar
-            </button>
-        }
-    </form>
+    <br />
+    @if(estaCargando){
+    <button
+      mat-fab
+      extended
+      color="primary"
+      type="submit"
+      [disabled]="estaCargando"
+    >
+      <mat-spinner [diameter]="20"></mat-spinner>
+    </button>
+    Un momento ... }@else {
+    <button mat-fab extended color="primary" type="submit">
+      <mat-icon>save</mat-icon> Guardar
+    </button>
+    }
+  </form>
 
-    <a href="ahorros/{{ahorroId}}">Atras</a>
+  <a href="ahorros/{{ ahorroId }}">Atras</a>
 </div>

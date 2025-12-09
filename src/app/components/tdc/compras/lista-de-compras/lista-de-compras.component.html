@@ -8,17 +8,22 @@
 
         <ng-container matColumnDef="monto">
             <th mat-header-cell *matHeaderCellDef>Monto</th>
-            <td mat-cell *matCellDef="let element">{{element.monto}}</td>
+            <td mat-cell *matCellDef="let element">{{element.monto |currency}}</td>
         </ng-container>
 
         <ng-container matColumnDef="saldo">
             <th mat-header-cell *matHeaderCellDef>Saldo</th>
-            <td mat-cell *matCellDef="let element">{{element.saldo}}</td>
+            <td mat-cell *matCellDef="let element">{{element.saldo | currency}}</td>
         </ng-container>
 
         <ng-container matColumnDef="fechaDeCompra">
             <th mat-header-cell *matHeaderCellDef>Fecha de compra</th>
             <td mat-cell *matCellDef="let element">{{element.fechaDeCompra}}</td>
+        </ng-container>
+
+         <ng-container matColumnDef="fechaDePago">
+            <th mat-header-cell *matHeaderCellDef>Fecha de pago</th>
+            <td mat-cell *matCellDef="let element">{{element.fechaDePago}}</td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="columnas"></tr>

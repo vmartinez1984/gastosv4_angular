@@ -16,7 +16,7 @@ import { MatTableDataSource } from '@angular/material/table';
 export class ListaDeComprasComponent {
   compras: CompraDto[] = [];
   dataSource = new MatTableDataSource(this.compras)
-  columnas = ["nombre",'monto','saldo','fechaDeCompra']
+  columnas = ["nombre",'monto','saldo','fechaDeCompra', 'fechaDePago']
 
   constructor(private servicio: CompraTdcService) {
     this.obtenerTodos();

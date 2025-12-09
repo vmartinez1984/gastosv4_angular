@@ -10,6 +10,6 @@ export interface MovimientoDto {
 
 export interface MovimientoDtoIn{
     referencia: string
-    cantidad : number    
-    concepto: string   
+    monto : number
+    concepto: string
 }
