@@ -1,12 +1,15 @@
-<div class="container-fluid">
+<div class="container">
 
     <h1>Lista de ahorros</h1>
-    <a [routerLink]="['/','ahorros','agregar']">Agregar nuevo</a>
+    <!-- <a [routerLink]="['/','ahorros','agregar']">Agregar nuevo</a> -->
+    <button mat-flat-button (click)="agregarAhorro()">
+      Agregar nuevo
+    </button>
     <p>{{total | currency}}</p>
 
     <mat-form-field>
         <mat-label>Filtrar</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
+        <input matInput (keyup)="applyFilter($event)" placeholder="ahorro" #input>
     </mat-form-field>
 
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
@@ -35,6 +38,9 @@
                 <a mat-mini-fab [routerLink]="['/','ahorros','editar',element.id]">
                     <mat-icon>edit_note</mat-icon>
                 </a>
+                <button mat-mini-fab (click)="editar(element)">
+                    <mat-icon>edit_note</mat-icon>
+                </button>
                 <a mat-mini-fab [routerLink]="['/','ahorros','detalles',element.id]">
                     <mat-icon>notes</mat-icon>
                 </a>

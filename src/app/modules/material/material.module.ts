@@ -19,12 +19,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { MatChipsModule } from '@angular/material/chips'
 import { MatSortModule } from '@angular/material/sort'
 import { MatCardModule } from '@angular/material/card'
+import { MatDialogModule } from '@angular/material/dialog'
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule
-  ],
+  imports: [CommonModule],
   exports: [
     MatToolbarModule,
     MatIconModule,
@@ -44,7 +43,8 @@ import { MatCardModule } from '@angular/material/card'
     MatProgressSpinnerModule,
     MatChipsModule,
     MatSortModule,
-    MatCardModule    
-  ]
+    MatCardModule,
+    MatDialogModule,
+  ],
 })
-export class MaterialModule { }
+export class MaterialModule {}

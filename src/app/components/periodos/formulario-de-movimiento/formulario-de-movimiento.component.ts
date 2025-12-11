@@ -1,10 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject, model } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { PresupuestoDelPeriodoDto } from '../../../interfaces/presupuesto-del-periodo-dto';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../../../modules/material/material.module';
 import { GastoService } from '../../../services/gasto.service';
@@ -49,8 +48,8 @@ export class FormularioDeMovimientoComponent {
           this._snackBar.open("Datos registrados ", "", {
             duration: 3000
           })
-          this.estaCargando = false          
-        
+          this.estaCargando = false
+
           this.data.cantidad = Number(this.formGroup.value.cantidad)
           this.dialogRef.close()
         },
@@ -68,9 +67,9 @@ export class FormularioDeMovimientoComponent {
   readonly data = inject<DialogData>(MAT_DIALOG_DATA)
   private _snackBar = inject(MatSnackBar)
   formGroup: FormGroup
-  estaCargando = false 
-  readonly presupuesto = this.data.presupuesto  
-  
+  estaCargando = false
+  readonly presupuesto = this.data.presupuesto
+
   constructor(private formBuilder: FormBuilder, private servicio: GastoService) {
     console.log(this.data)
     this.formGroup = this.formBuilder.group({

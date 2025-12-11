@@ -12,10 +12,7 @@ import { FormularioDeMovimientoComponent } from '../formulario-de-movimiento/for
 import { SubcategoriaDto } from '../../../interfaces/subcategoria-dto';
 import { TipoDeAhorroDto } from '../../../interfaces/tipo-de-ahorro-dto';
 import { PeriodoDto } from '../../../interfaces/periodo-dto';
-import {
-  TransaccionDto,
-  TransaccionDtoIn,
-} from '../../../interfaces/transaccion-dto';
+import { TransaccionDto } from '../../../interfaces/transaccion-dto';
 
 @Component({
   selector: 'app-detalle-de-periodo',
@@ -73,7 +70,7 @@ export class DetalleDePeriodoComponent {
       });
     this.servicio.periodo.obtenerPresupuestos(id).subscribe({
       next: (presupuestos) => {
-        console.log("Presupuestos",presupuestos);
+        console.log('Presupuestos', presupuestos);
         this.presupuestos = presupuestos;
         this.presupuestos.forEach((item) => {
           let subcategoria = this.subcategorias.find(
@@ -87,7 +84,7 @@ export class DetalleDePeriodoComponent {
           let gastado = 0;
           for (let index = 0; index < transacciones.length; index++) {
             const element = transacciones[index];
-            gastado +=  element.cantidad
+            gastado += element.cantidad;
           }
           item.gastado = gastado;
         });

@@ -1,0 +1,40 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <ng-container matColumnDef="nombre">
+    <th mat-header-cell *matHeaderCellDef>Nombre</th>
+    <td mat-cell *matCellDef="let element">{{ element.nombre }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="monto">
+    <th mat-header-cell *matHeaderCellDef>Monto</th>
+    <td mat-cell *matCellDef="let element">{{ element.monto | currency }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="saldo">
+    <th mat-header-cell *matHeaderCellDef>Saldo</th>
+    <td mat-cell *matCellDef="let element">{{ element.saldo | currency }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="fechaDeCompra">
+    <th mat-header-cell *matHeaderCellDef>Fecha de compra</th>
+    <td mat-cell *matCellDef="let element">{{ element.fechaDeCompra }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="fechaDePago">
+    <th mat-header-cell *matHeaderCellDef>Fecha de pago</th>
+    <td mat-cell *matCellDef="let element">{{ element.fechaDePago }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="acciones">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let element">
+      @if(element.id != 0 && element.saldo != 0){
+        <button mat-icon-button color="primary" (click)="pagarCompra(element)">
+          <mat-icon>payment</mat-icon>
+        </button>
+      }
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+  <tr mat-row *matRowDef="let row; columns: columnas"></tr>
+</table>

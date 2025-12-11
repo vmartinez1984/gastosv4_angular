@@ -1,6 +1,6 @@
-import { Component, PipeTransform } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { GastoService } from '../../../services/gasto.service';
-import { AhorroDto, TipoDeAhorro } from '../../../interfaces/ahorro-dto';
+import { AhorroDto } from '../../../interfaces/ahorro-dto';
 import { MaterialModule } from '../../../modules/material/material.module';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -9,6 +9,8 @@ import Swal from 'sweetalert2';
 import { error, unMomento } from '../../../helpers/toast';
 import { RouterModule } from '@angular/router';
 import { TipoDeAhorroDto } from '../../../interfaces/tipo-de-ahorro-dto';
+import { MatDialog } from '@angular/material/dialog';
+import { FormularioDeAhorroComponent } from '../formulario-de-ahorro/formulario-de-ahorro.component';
 
 @Component({
   selector: 'app-lista-de-ahorros',
@@ -17,6 +19,21 @@ import { TipoDeAhorroDto } from '../../../interfaces/tipo-de-ahorro-dto';
   styleUrl: './lista-de-ahorros.component.css',
 })
 export class ListaDeAhorrosComponent {
+  editar(ahorroDto: AhorroDto) {
+    console.log(ahorroDto);
+    const dialogRef = this.dialog.open(FormularioDeAhorroComponent, {
+      data:  ahorroDto
+    });
+  }
+  readonly dialog = inject(MatDialog);
+  agregarAhorro() {
+    const dialogRef = this.dialog.open(FormularioDeAhorroComponent, {});
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
+      this.obtenerAhorros();
+    });
+  }
+
   borrarAhorro(ahorro: AhorroDto) {
     Swal.fire({
       title: '¿Desea borrar el ahorro?',
@@ -74,6 +91,10 @@ export class ListaDeAhorrosComponent {
         this.tipoDeAhorros = tipoDeAhorros;
       },
     });
+    this.obtenerAhorros();
+  }
+
+  obtenerAhorros() {
     this.servicio.ahorro.obtenerTodos().subscribe({
       next: (ahorros) => {
         //console.log(ahorros)

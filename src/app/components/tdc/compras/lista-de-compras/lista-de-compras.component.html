@@ -1,32 +1,13 @@
 <div class="container">
   <h1>Lista de compras</h1>
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-    <ng-container matColumnDef="nombre">
-            <th mat-header-cell *matHeaderCellDef>Nombre</th>
-            <td mat-cell *matCellDef="let element">{{element.nombre}}</td>
-        </ng-container>
 
-        <ng-container matColumnDef="monto">
-            <th mat-header-cell *matHeaderCellDef>Monto</th>
-            <td mat-cell *matCellDef="let element">{{element.monto |currency}}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="saldo">
-            <th mat-header-cell *matHeaderCellDef>Saldo</th>
-            <td mat-cell *matCellDef="let element">{{element.saldo | currency}}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="fechaDeCompra">
-            <th mat-header-cell *matHeaderCellDef>Fecha de compra</th>
-            <td mat-cell *matCellDef="let element">{{element.fechaDeCompra}}</td>
-        </ng-container>
-
-         <ng-container matColumnDef="fechaDePago">
-            <th mat-header-cell *matHeaderCellDef>Fecha de pago</th>
-            <td mat-cell *matCellDef="let element">{{element.fechaDePago}}</td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="columnas"></tr>
-        <tr mat-row *matRowDef=" let row; columns: columnas;"></tr>
-  </table>
+  <button mat-button color="primary" (click)="abrirDialogoAgregarCompra()">
+    <mat-icon>add</mat-icon> Agregar compra
+  </button>
+  <br />
+  @for (lista of listaDeCompras; track $index) {
+  <p>
+    <app-tabla-de-compras [compras]="lista.compras" />
+  </p>
+  }
 </div>

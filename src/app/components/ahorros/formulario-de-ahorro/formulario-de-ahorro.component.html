@@ -1,44 +1,69 @@
+<h2 mat-dialog-title>Agregar nuevo ahorro</h2>
+
 <form [formGroup]="formGroup" (submit)="guardar()">
+  <mat-dialog-content>
     <mat-form-field appearance="outline">
-        <mat-label>Nombre</mat-label>
-        <input matInput formControlName="nombre">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="nombre" placeholder="ahorro" type="text" />
     </mat-form-field>
 
-    <br />
     <mat-form-field appearance="outline">
-        <input matInput [matDatepicker]="picker" formControlName="fechaInicial">
-        <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        formControlName="fechaInicial"
+        placeholder="hoy"
+      />
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
 
-    <br />
     <mat-form-field appearance="outline">
-        <input matInput [matDatepicker]="picker1" formControlName="fechaFinal">
-        <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
-        <mat-datepicker #picker1></mat-datepicker>
+      <input
+        matInput
+        [matDatepicker]="picker1"
+        formControlName="fechaFinal"
+        placeholder="mañana"
+      />
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker1"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
     </mat-form-field>
 
-    <br />
     <mat-form-field appearance="outline">
-        <mat-label>Tipo de ahorro</mat-label>
-        <mat-select formControlName="tipoDeAhorroId">
-            @for (item of tiposDeAhorros; track $index) {
-            <mat-option value="{{item.id}}">{{item.nombre}}</mat-option>
-            }
-        </mat-select>
+      <mat-label>Tipo de ahorro</mat-label>
+      <mat-select formControlName="tipoDeAhorroId">
+        @for (item of tiposDeAhorros; track $index) {
+        <mat-option value="{{item.id}}">{{item.nombre}}</mat-option>
+        }
+      </mat-select>
     </mat-form-field>
+  </mat-dialog-content>
 
-    <br />
+  <mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="" type="button">Cerrar</button>
     @if(estaCargando){
-    <button mat-fab extended color="primary" type="submit" [disabled]="estaCargando">
-        <mat-spinner [diameter]="20"></mat-spinner>
+    <button
+      mat-fab
+      extended
+      color="primary"
+      type="submit"
+      [disabled]="estaCargando"
+    >
+      Un momento ...
+      <mat-spinner [diameter]="20"></mat-spinner>
     </button>
-    Un momento ...
     }@else {
     <button mat-fab extended color="primary" type="submit">
-        <mat-icon>save</mat-icon> Guardar
+      <mat-icon>save</mat-icon> Guardar
     </button>
     }
+  </mat-dialog-actions>
 </form>

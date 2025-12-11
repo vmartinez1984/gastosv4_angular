@@ -1,22 +1,39 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CompraTdcService } from '../../services/compra-tdc.service';
-import { CompraDto } from '../../interfaces/compra-dto';
+import { CompraDto, ListaDeCompras } from '../../interfaces/compra-dto';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { MatSortModule } from '@angular/material/sort';
-import { MaterialModule } from '../../../../modules/material/material.module';
-import { MatTableDataSource } from '@angular/material/table';
+import { AgregarCompraComponent } from '../agregar-compra/agregar-compra.component';
+import { MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { TablaDeComprasComponent } from '../tabla-de-compras/tabla-de-compras.component';
+
 
 @Component({
   selector: 'app-lista-de-compras',
-  imports: [MaterialModule, MatSortModule, CommonModule, RouterModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    MatIconModule,
+    MatButtonModule,
+    TablaDeComprasComponent
+  ],
   templateUrl: './lista-de-compras.component.html',
   styleUrl: './lista-de-compras.component.css',
 })
 export class ListaDeComprasComponent {
+  abrirDialogoAgregarCompra() {
+    const dialogRef = this.dialog.open(AgregarCompraComponent, {});
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
+      this.obtenerTodos();
+    });
+  }
+
   compras: CompraDto[] = [];
-  dataSource = new MatTableDataSource(this.compras)
-  columnas = ["nombre",'monto','saldo','fechaDeCompra', 'fechaDePago']
+  readonly dialog = inject(MatDialog);
+  listaDeCompras: ListaDeCompras[]=[]
 
   constructor(private servicio: CompraTdcService) {
     this.obtenerTodos();
@@ -25,9 +42,8 @@ export class ListaDeComprasComponent {
   obtenerTodos() {
     this.servicio.obtenerComprasTdc().subscribe({
       next: (compras) => {
-        this.compras = compras;
+        this.listaDeCompras = compras;
         console.log(compras);
-        this.dataSource = new MatTableDataSource(this.compras);
       },
     });
   }
