@@ -35,16 +35,13 @@
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element">
-                <a mat-mini-fab [routerLink]="['/','ahorros','editar',element.id]">
-                    <mat-icon>edit_note</mat-icon>
-                </a>
                 <button mat-mini-fab (click)="editar(element)">
                     <mat-icon>edit_note</mat-icon>
                 </button>
                 <a mat-mini-fab [routerLink]="['/','ahorros','detalles',element.id]">
                     <mat-icon>notes</mat-icon>
                 </a>
-                <button mat-mini-fab style="color: red;" (click)="borrarAhorro(element)">
+                <button mat-mini-fab style="color: red;" (click)="borrarAhorro(element)" type="button">
                     <mat-icon>delete</mat-icon>
                 </button>
             </td>

@@ -5,12 +5,12 @@ import { MaterialModule } from '../../../modules/material/material.module';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
-import Swal from 'sweetalert2';
-import { error, unMomento } from '../../../helpers/toast';
+import { error } from '../../../helpers/toast';
 import { RouterModule } from '@angular/router';
 import { TipoDeAhorroDto } from '../../../interfaces/tipo-de-ahorro-dto';
 import { MatDialog } from '@angular/material/dialog';
 import { FormularioDeAhorroComponent } from '../formulario-de-ahorro/formulario-de-ahorro.component';
+import { BorrarAhorroComponent } from '../borrar-ahorro/borrar-ahorro.component';
 
 @Component({
   selector: 'app-lista-de-ahorros',
@@ -22,10 +22,11 @@ export class ListaDeAhorrosComponent {
   editar(ahorroDto: AhorroDto) {
     console.log(ahorroDto);
     const dialogRef = this.dialog.open(FormularioDeAhorroComponent, {
-      data:  ahorroDto
+      data: ahorroDto,
     });
   }
   readonly dialog = inject(MatDialog);
+
   agregarAhorro() {
     const dialogRef = this.dialog.open(FormularioDeAhorroComponent, {});
     dialogRef.afterClosed().subscribe((result) => {
@@ -35,36 +36,12 @@ export class ListaDeAhorrosComponent {
   }
 
   borrarAhorro(ahorro: AhorroDto) {
-    Swal.fire({
-      title: '¿Desea borrar el ahorro?',
-      text: ahorro.nombre + ' ' + ahorro.tipoDeAhorroNombre,
-      showDenyButton: false,
-      showCancelButton: true,
-      confirmButtonText: 'Borrar',
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        unMomento();
-        this.servicio.ahorro.borrar(ahorro.id).subscribe({
-          next: (data) => {
-            let index = this.ahorros.findIndex((x) => x.id == ahorro.id);
-            this.ahorros.splice(index, 1);
-            this.dataSource = new MatTableDataSource(this.ahorros);
-            Swal.fire({
-              position: 'top-end',
-              icon: 'success',
-              title: 'Ahorro borrado correctamente',
-              showConfirmButton: false,
-              toast: true,
-              timer: 1500,
-            });
-          },
-          error: (data) => {
-            console.log(data);
-            error();
-          },
-        });
-      }
+    const dialogRef = this.dialog.open(BorrarAhorroComponent, {
+      data: ahorro,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
+      this.obtenerAhorros();
     });
   }
 
@@ -95,6 +72,7 @@ export class ListaDeAhorrosComponent {
   }
 
   obtenerAhorros() {
+    this.total = 0;
     this.servicio.ahorro.obtenerTodos().subscribe({
       next: (ahorros) => {
         //console.log(ahorros)

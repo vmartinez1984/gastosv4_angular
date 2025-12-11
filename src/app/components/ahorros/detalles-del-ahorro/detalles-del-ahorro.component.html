@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container">
     <mat-card>
         <mat-card-header>
             {{ahorroDto?.nombre}}
@@ -11,8 +11,14 @@
             {{ahorroDto?.fechaFinal}} -->
         </mat-card-content>
         <mat-card-actions>
-            <a mat-button [routerLink]="['/','ahorros', ahorroDto?.id, 'depositar']">Depositar</a>
-            <a mat-button [routerLink]="['/','ahorros', ahorroDto?.id, 'retirar']">Retirar</a>
+            <button mat-button color="warn" type="button" (click)="depositar()">
+              Depositar
+              <mat-icon>add_circle</mat-icon>
+            </button>
+            <button mat-button color="warn" type="button" (click)="retirar()">
+              Retirar
+              <mat-icon>do_not_disturb_on</mat-icon>
+            </button>
             <a [routerLink]="['/','ahorros']">Ahorros</a>
           </mat-card-actions>
     </mat-card>

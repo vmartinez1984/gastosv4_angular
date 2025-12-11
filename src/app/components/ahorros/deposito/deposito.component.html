@@ -1,14 +1,15 @@
-<div class="container">
-  <mat-card>
-    <mat-card-content>
-      Total: {{ ahorroDto?.balance | currency }}
-    </mat-card-content>
-  </mat-card>
+<h1 mat-dialog-title mat-text-primary>{{ahorroDto.nombre}}</h1>
+<form [formGroup]="formGroup" (submit)="guardar()">
+  <mat-dialog-content>
+    <mat-card>
+      <mat-card-content>
+        Saldo inicial: {{ ahorroDto.balance | currency }}
+      </mat-card-content>
+    </mat-card>
 
-  <br />
-  <form [formGroup]="formGroup" (submit)="guardar()">
+    <br />
     <mat-form-field appearance="outline">
-      <mat-label>Cantidad</mat-label>
+      <mat-label>Monto</mat-label>
       <input
         matInput
         formControlName="cantidad"
@@ -26,16 +27,17 @@
 
     <mat-card>
       <mat-card-content>
-        {{ subtotal | currency }}
+      Saldo final  {{ subtotal | currency }}
       </mat-card-content>
     </mat-card>
 
     <br />
     <mat-form-field appearance="outline">
       <mat-label>Concepto</mat-label>
-      <input matInput formControlName="concepto" />
+      <input matInput formControlName="concepto" placeholder="pa los tacos" />
     </mat-form-field>
-
+  </mat-dialog-content>
+  <mat-dialog-actions>
     <br />
     @if(estaCargando){
     <button
@@ -45,6 +47,7 @@
       type="submit"
       [disabled]="estaCargando"
     >
+      Un momento ...
       <mat-spinner [diameter]="20"></mat-spinner>
     </button>
     Un momento ... }@else {
@@ -52,7 +55,5 @@
       <mat-icon>save</mat-icon> Guardar
     </button>
     }
-  </form>
-
-  <a href="ahorros/{{ ahorroId }}">Atras</a>
-</div>
+  </mat-dialog-actions>
+</form>

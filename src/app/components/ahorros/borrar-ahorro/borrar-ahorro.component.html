@@ -1,0 +1,28 @@
+<mat-dialog-content>
+  <p>¿Está seguro que desea borrar el ahorro "{{ ahorro.nombre }}"?</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="" type="button">Cancelar</button>
+  @if(estaCargando){
+  <button
+    mat-fab
+    extended
+    color="primary"
+    type="submit"
+    [disabled]="estaCargando"
+  >
+    Un momento ...
+    <mat-spinner [diameter]="20"></mat-spinner>
+  </button>
+  }@else {
+  <button
+    mat-button
+    color="warn"
+    [mat-dialog-close]="true"
+    type="button"
+    (click)="borrarAhorro()"
+  >
+    Borrar
+  </button>
+  }
+</mat-dialog-actions>

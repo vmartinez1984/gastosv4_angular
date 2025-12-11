@@ -2,9 +2,7 @@ import { Routes } from '@angular/router';
 import { ListaDeSubcategoriasComponent } from './components/subcategorias/lista-de-subcategorias/lista-de-subcategorias.component';
 import { AgregarSubcategoriaComponent } from './components/subcategorias/agregar-subcategoria/agregar-subcategoria.component';
 import { EditarSubcategoriaComponent } from './components/subcategorias/editar-subcategoria/editar-subcategoria.component';
-import { ListaDeAhorrosComponent } from './components/ahorros/lista-de-ahorros/lista-de-ahorros.component';
-import { AgregarAhorroComponent } from './components/ahorros/agregar-ahorro/agregar-ahorro.component';
-import { EditarAhorroComponent } from './components/ahorros/editar-ahorro/editar-ahorro.component';
+import { ListaDeAhorrosComponent } from './components/ahorros/lista-de-ahorros/lista-de-ahorros.component'
 import { DetallesDelAhorroComponent } from './components/ahorros/detalles-del-ahorro/detalles-del-ahorro.component';
 import { DepositoComponent } from './components/ahorros/deposito/deposito.component';
 import { RetiroComponent } from './components/ahorros/retiro/retiro.component';
@@ -30,8 +28,6 @@ export const routes: Routes = [
     { path: "subcategorias/agregar", component: AgregarSubcategoriaComponent, canActivate: [SesionGuard] },
     { path: "subcategorias/editar/:id", component: EditarSubcategoriaComponent, canActivate: [SesionGuard] },
     { path: "ahorros", component: ListaDeAhorrosComponent, canActivate: [SesionGuard] },
-    { path: "ahorros/agregar", component: AgregarAhorroComponent, canActivate: [SesionGuard] },
-    { path: "ahorros/editar/:id", component: EditarAhorroComponent, canActivate: [SesionGuard] },
     { path: "ahorros/detalles/:id", component: DetallesDelAhorroComponent, canActivate: [SesionGuard] },
     { path: "ahorros/:id/detalles", component: DetallesDelAhorroComponent, canActivate: [SesionGuard] },
     { path: "ahorros/:id/depositar", component: DepositoComponent, canActivate: [SesionGuard] },

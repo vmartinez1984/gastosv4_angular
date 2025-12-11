@@ -12,7 +12,7 @@
         matInput
         [matDatepicker]="picker"
         formControlName="fechaInicial"
-        placeholder="hoy"
+        placeholder="fecha inicial"
       />
       <mat-hint>MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle
@@ -22,12 +22,14 @@
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
 
+    <br/>
+    <br/>
     <mat-form-field appearance="outline">
       <input
         matInput
         [matDatepicker]="picker1"
         formControlName="fechaFinal"
-        placeholder="mañana"
+        placeholder="fecha final"
       />
       <mat-hint>MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle
@@ -37,6 +39,8 @@
       <mat-datepicker #picker1></mat-datepicker>
     </mat-form-field>
 
+    <br/>
+    <br/>
     <mat-form-field appearance="outline">
       <mat-label>Tipo de ahorro</mat-label>
       <mat-select formControlName="tipoDeAhorroId">
