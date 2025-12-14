@@ -23,6 +23,8 @@ import { TablaDeComprasComponent } from '../tabla-de-compras/tabla-de-compras.co
   styleUrl: './lista-de-compras.component.css',
 })
 export class ListaDeComprasComponent {
+  total = 0;
+
   abrirDialogoAgregarCompra() {
     const dialogRef = this.dialog.open(AgregarCompraComponent, {});
     dialogRef.afterClosed().subscribe((result) => {
@@ -44,6 +46,7 @@ export class ListaDeComprasComponent {
       next: (compras) => {
         this.listaDeCompras = compras;
         console.log(compras);
+        this.total = compras.reduce((acc, compra) => acc + compra.total, 0);
       },
     });
   }

@@ -1,11 +1,7 @@
 import { Routes } from '@angular/router';
 import { ListaDeSubcategoriasComponent } from './components/subcategorias/lista-de-subcategorias/lista-de-subcategorias.component';
-import { AgregarSubcategoriaComponent } from './components/subcategorias/agregar-subcategoria/agregar-subcategoria.component';
-import { EditarSubcategoriaComponent } from './components/subcategorias/editar-subcategoria/editar-subcategoria.component';
 import { ListaDeAhorrosComponent } from './components/ahorros/lista-de-ahorros/lista-de-ahorros.component'
 import { DetallesDelAhorroComponent } from './components/ahorros/detalles-del-ahorro/detalles-del-ahorro.component';
-import { DepositoComponent } from './components/ahorros/deposito/deposito.component';
-import { RetiroComponent } from './components/ahorros/retiro/retiro.component';
 import { ListaDeVersionesComponent } from './components/versiones/lista-de-versiones/lista-de-versiones.component';
 import { AgregarVersionComponent } from './components/versiones/agregar-version/agregar-version.component';
 import { EditarVersionComponent } from './components/versiones/editar-version/editar-version.component';
@@ -24,14 +20,9 @@ import { ListaDeComprasComponent } from './components/tdc/compras/lista-de-compr
 export const routes: Routes = [
     { path: "", component: InicioComponent, canActivate: [SesionGuard] },
     { path: "inicioDeSesion", component: InicioDeSesionComponent },
-    { path: "subcategorias", component: ListaDeSubcategoriasComponent, canActivate: [SesionGuard] },
-    { path: "subcategorias/agregar", component: AgregarSubcategoriaComponent, canActivate: [SesionGuard] },
-    { path: "subcategorias/editar/:id", component: EditarSubcategoriaComponent, canActivate: [SesionGuard] },
     { path: "ahorros", component: ListaDeAhorrosComponent, canActivate: [SesionGuard] },
     { path: "ahorros/detalles/:id", component: DetallesDelAhorroComponent, canActivate: [SesionGuard] },
-    { path: "ahorros/:id/detalles", component: DetallesDelAhorroComponent, canActivate: [SesionGuard] },
-    { path: "ahorros/:id/depositar", component: DepositoComponent, canActivate: [SesionGuard] },
-    { path: "ahorros/:id/retirar", component: RetiroComponent, canActivate: [SesionGuard] },
+    { path: "subcategorias", component: ListaDeSubcategoriasComponent, canActivate: [SesionGuard] },
     { path: "versiones", component: ListaDeVersionesComponent, canActivate: [SesionGuard] },
     { path: "versiones/agregar", component: AgregarVersionComponent, canActivate: [SesionGuard] },
     { path: "versiones/:id/editar", component: EditarVersionComponent, canActivate: [SesionGuard] },

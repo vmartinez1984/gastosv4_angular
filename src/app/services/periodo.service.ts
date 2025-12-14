@@ -4,13 +4,18 @@ import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { PeriodoDto, PeriodoDtoIn } from '../interfaces/periodo-dto';
 import { PresupuestoDelPeriodoDto } from '../interfaces/presupuesto-del-periodo-dto';
-import { TransaccionDto, TransaccionDtoIn } from '../interfaces/transaccion-dto';
+import {
+  TransaccionDto,
+  TransaccionDtoIn,
+} from '../interfaces/transaccion-dto';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PeriodoService {
-  obtenerTodasTransacciones(periodoId: number | undefined):Observable<TransaccionDto[]> {
+  obtenerTodasTransacciones(
+    periodoId: number | undefined
+  ): Observable<TransaccionDto[]> {
     return this.httpClient.get<TransaccionDto[]>(
       this.url + periodoId + '/Transacciones'
     );

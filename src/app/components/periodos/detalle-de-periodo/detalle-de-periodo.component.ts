@@ -29,22 +29,17 @@ export class DetalleDePeriodoComponent {
   async mostrarFormulario(presupuesto: PresupuestoDelPeriodoDto) {
     console.log(presupuesto);
     const dialogRef = this.dialog.open(FormularioDeMovimientoComponent, {
-      data: { presupuesto, cantidad: this.cantida() },
+      data: { presupuesto, periodoId: this.periodo?.id },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(dialogRef.componentInstance.data);
+      console.log(result);
       if (this.ahorro?.balance)
         this.ahorro.balance =
-          Number(this.ahorro.balance) -
-          Number(dialogRef.componentInstance.data.cantidad);
-      let presupuestoAActualizar = this.presupuestos.find(
-        (x) => x.presupuestoId == presupuesto?.presupuestoId
-      );
-      if (presupuestoAActualizar)
-        presupuestoAActualizar.gastado =
-          Number(dialogRef.componentInstance.data.cantidad) +
-          Number(presupuestoAActualizar.gastado);
+          Number(this.ahorro.balance) - Number(result.cantidad);
+      let index = this.presupuestos.findIndex((x) => x.id == presupuesto.id);
+      this.presupuestos[index].gastado =
+        Number(result.cantidad) + Number(this.presupuestos[index].gastado);
       this.dataSource = new MatTableDataSource(this.presupuestos);
     });
   }
@@ -127,6 +122,12 @@ export class DetalleDePeriodoComponent {
     });
   }
 
+  calcularAamarillo(monto: number) {
+    return monto / 1.1;
+  }
+  calcularAverde(monto: number) {
+    return monto * 1.1;
+  }
   estaCargando = false;
   total: number = 0;
   gastado: number = 0;
@@ -145,5 +146,6 @@ export class DetalleDePeriodoComponent {
 
 export interface DialogData {
   presupuesto: PresupuestoDelPeriodoDto;
-  cantidad: number;
+  periodoId: number;
+  cantidad: number
 }

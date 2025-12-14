@@ -1,81 +1,79 @@
 <div class="container">
+  <h1>Detalle de Periodo</h1>
+  <mat-card>
+    <mat-card-header>
+      Total de entradas: {{ ahorro?.balance | currency }}
+      <br />
+      Gastado: {{ gastado | currency }}
+    </mat-card-header>
+  </mat-card>
+  <br />
 
-    <h1>Detalle de Periodo</h1>
-    <mat-card>
-        <mat-card-header>
-            Total de entradas: {{ahorro?.balance | currency }}
-            <br/>
-            Gastado: {{ gastado | currency }}
-        </mat-card-header>
-    </mat-card>
-    <br />
+  <mat-form-field>
+    <mat-label>Filtrar</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="fitrar" #input />
+  </mat-form-field>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="cantidad">
+      <th mat-header-cell *matHeaderCellDef>Cantidad</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.cantidad | currency }}
+      </td></ng-container
+    >
 
-    <mat-form-field>
-        <mat-label>Filtrar</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="fitrar" #input>
-    </mat-form-field>
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-        <ng-container matColumnDef="cantidad">
-            <th mat-header-cell *matHeaderCellDef>Cantidad</th>
-            <td mat-cell *matCellDef="let element">{{element.cantidad | currency}}
-        </ng-container>
+    <ng-container matColumnDef="subcategoria">
+      <th mat-header-cell *matHeaderCellDef>Subcategoria</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.subcategoriaNombre }}
+      </td>
+    </ng-container>
 
-        <ng-container matColumnDef="subcategoria">
-            <th mat-header-cell *matHeaderCellDef>Subcategoria</th>
-            <td mat-cell *matCellDef="let element">
-                {{element.subcategoriaNombre}}
-            </td>
-        </ng-container>
+    <ng-container matColumnDef="tipoDeAhorro">
+      <th mat-header-cell *matHeaderCellDef>Tipo de ahorro</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.ahorroTipoNombre }}
+      </td>
+    </ng-container>
 
-        <ng-container matColumnDef="tipoDeAhorro">
-            <th mat-header-cell *matHeaderCellDef>Tipo de ahorro</th>
-            <td mat-cell *matCellDef="let element">
-                {{element.ahorroTipoNombre}}
-            </td>
-        </ng-container>
+    <ng-container matColumnDef="gastado">
+      <th mat-header-cell *matHeaderCellDef>Gastado</th>
+      <td mat-cell *matCellDef="let element">
+        <div class="cantidad">
+          @if(element.gastado == 0){
+            <span class="text-secondary">{{ element.gastado | currency }}</span>
+          }@else if(element.gastado > 1 && element.gastado < calcularAamarillo(element.cantidad)){
+            <span class="text-primary">{{ element.gastado | currency }}</span>
+          }@else if(element.gastado > 1 && element.gastado < calcularAverde(element.cantidad)){
+            <span class="text-success">{{ element.gastado | currency }}</span>
+          }@else {
+            <span class="text-danger">{{ element.gastado | currency }}</span>
+          }
+        </div>
+      </td>
+    </ng-container>
 
-        <ng-container matColumnDef="gastado">
-            <th mat-header-cell *matHeaderCellDef>Gastado</th>
-            <td mat-cell *matCellDef="let element">
-                @if(element.gastado == 0){
-                    <span class="text-success">{{element.gastado | currency}}</span>
-                }@else if(element.gastado > element.cantidad){
-                    <span class="text-danger">{{element.gastado | currency}}</span>
-                }@else {
-                    {{element.gastado | currency}}
-                }
-            </td>
-        </ng-container>
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-mini-fab (click)="mostrarFormulario(element)">
+          <mat-icon>local_atm</mat-icon>
+        </button>
+        @if(element.ahorroTipoNombre != null){
+        <a
+          mat-mini-fab
+          [routerLink]="['/', 'ahorros', element.ahorroId, 'detalles']"
+        >
+          <mat-icon>savings</mat-icon>
+        </a>
+        }
+      </td>
+    </ng-container>
 
-        <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let element">
-                <!-- <a mat-mini-fab href="versiones/{{id}}/presupuestos/{{element.id}}/editar">
-                    <mat-icon>edit_note</mat-icon>
-                </a> -->
-                <!-- <a mat-mini-fab href="/versiones/{{element.id}}/detalles">
-                    <mat-icon>notes</mat-icon>
-                </a> -->
-                <!-- <button mat-mini-fab style="color: red;" (click)="borrar(element)">
-                    <mat-icon >delete</mat-icon>
-                </button> -->
-                <button mat-mini-fab (click)="mostrarFormulario(element)">
-                    <mat-icon>local_atm</mat-icon>
-                </button>
-                @if(element.ahorroTipoNombre != null){
-                <a mat-mini-fab [routerLink]="['/','ahorros', element.ahorroId, 'detalles']">
-                    <mat-icon>savings</mat-icon>
-                </a>
-                }
-            </td>
-        </ng-container>
+    <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnas"></tr>
+  </table>
 
-        <tr mat-header-row *matHeaderRowDef="columnas"></tr>
-        <tr mat-row *matRowDef=" let row; columns: columnas;"></tr>
-    </table>
-
-    @if (estaCargando) {
-    <mat-spinner />
-    }
-
+  @if (estaCargando) {
+  <mat-spinner />
+  }
 </div>

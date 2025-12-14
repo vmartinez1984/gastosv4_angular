@@ -1,6 +1,6 @@
 <div class="container">
   <h1>Lista de compras</h1>
-
+  <h2>Total: {{ total | currency }}</h2>
   <button mat-button color="primary" (click)="abrirDialogoAgregarCompra()">
     <mat-icon>add</mat-icon> Agregar compra
   </button>

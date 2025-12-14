@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { CompraDto } from '../../interfaces/compra-dto';
 import { MatDialog } from '@angular/material/dialog';
 import { PagarCompraComponent } from '../pagar-compra/pagar-compra.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-tabla-de-compras',
@@ -23,17 +24,30 @@ import { PagarCompraComponent } from '../pagar-compra/pagar-compra.component';
   styleUrl: './tabla-de-compras.component.css',
 })
 export class TablaDeComprasComponent {
-  pagarCompra(_t66: any) {
-    console.log('Pagar compra', _t66);
+  pagarCompra(compra: CompraDto) {
+    console.log('Pagar compra', compra);
     const dialogRef = this.dialog.open(PagarCompraComponent, {
-      data: { id: _t66.id },
+      data: compra,
     });
     dialogRef.afterClosed().subscribe((result) => {
+      this.recalcular(result, compra);
+      this._snackBar.open('Pago realizado con éxito', result.id, {
+        duration: 3000,
+      });
       console.log('El diálogo se cerró');
     });
   }
+  recalcular(result: any, compraOriginal: CompraDto) {
+    let compra = this.compras.find((c) => c.id === 0);
+    compra!.monto -= result.pago;
+    compra!.saldo -= result.pago;
+    let compra01 = this.compras.find((c) => c.id === compraOriginal.id);
+    if (compra01) compra01.saldo -= result.pago;
+    this.dataSource = new MatTableDataSource(this.compras);
+  }
 
   readonly dialog = inject(MatDialog);
+  readonly _snackBar = inject(MatSnackBar);
   @Input() compras: CompraDto[] = [];
   dataSource = new MatTableDataSource(this.compras);
   columnas = [
