@@ -80,43 +80,34 @@ export class ListaDeSubcategoriasComponent {
 
   borrar(subcategoria: SubcategoriaDto) {
     console.log(subcategoria);
-    const dialogRef = this.dialog.open(BorrarElementoComponent, {});
+    const dialogRef = this.dialog.open(BorrarElementoComponent, {
+      data: {
+        titulo: '¿Desea borrar la subcategoría?',
+        mensaje: subcategoria.nombre,
+      },
+    });
     dialogRef.afterClosed().subscribe((result) => {
       if (result === true) {
+        //console.log('Borrando...');
+         this.servicio.subcategoria.borrar(subcategoria.id).subscribe({
+          next: (data) => {
+            let index = this.subcategorias.findIndex(
+              (x) => x.id == subcategoria.id
+            );
+            this.subcategorias.splice(index, 1);
+            this.dataSource = new MatTableDataSource(this.subcategorias);
+            this._snackBar.open('Subcategoría borrada', 'Cerrar', {
+              duration: 3000,
+            });
+          },
+          error: (data) => {
+            console.log(data);
+            this._snackBar.open('Ocurrio un error :(', 'Cerrar', {
+              duration: 5000,
+            });
+          },
+        });
       }
     });
-    // Swal.fire({
-    //   title: '¿Desea borrar la subcategoria?',
-    //   text: subcategoria.nombre,
-    //   showDenyButton: false,
-    //   showCancelButton: true,
-    //   confirmButtonText: 'Borrar',
-    // }).then((result) => {
-    //   /* Read more about isConfirmed, isDenied below */
-    //   if (result.isConfirmed) {
-    //     unMomento();
-    //     this.servicio.subcategoria.borrar(subcategoria.id).subscribe({
-    //       next: (data) => {
-    //         let index = this.subcategorias.findIndex(
-    //           (x) => x.id == subcategoria.id
-    //         );
-    //         this.subcategorias.splice(index, 1);
-    //         this.dataSource = new MatTableDataSource(this.subcategorias);
-    //         Swal.fire({
-    //           position: 'top-end',
-    //           icon: 'success',
-    //           title: 'Subcategoria borrado correctamente',
-    //           showConfirmButton: false,
-    //           toast: true,
-    //           timer: 1500,
-    //         });
-    //       },
-    //       error: (data) => {
-    //         console.log(data);
-    //         error();
-    //       },
-    //     });
-    //   }
-    // });
   }
 }

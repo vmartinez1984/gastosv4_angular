@@ -10,7 +10,8 @@ import { RouterModule } from '@angular/router';
 import { TipoDeAhorroDto } from '../../../interfaces/tipo-de-ahorro-dto';
 import { MatDialog } from '@angular/material/dialog';
 import { FormularioDeAhorroComponent } from '../formulario-de-ahorro/formulario-de-ahorro.component';
-import { BorrarAhorroComponent } from '../borrar-ahorro/borrar-ahorro.component';
+import { BorrarElementoComponent } from '../../borrar-elemento/borrar-elemento.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-lista-de-ahorros',
@@ -35,13 +36,34 @@ export class ListaDeAhorrosComponent {
     });
   }
 
+  private _snackBar = inject(MatSnackBar);
   borrarAhorro(ahorro: AhorroDto) {
-    const dialogRef = this.dialog.open(BorrarAhorroComponent, {
-      data: ahorro,
+    const dialogRef = this.dialog.open(BorrarElementoComponent, {
+      data: {
+        titulo: '¿Desea borrar el ahorro?',
+        mensaje: ahorro.nombre,
+      },
     });
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
-      this.obtenerAhorros();
+      if (result === true) {
+        //console.log('Borrando...');
+        this.servicio.ahorro.borrar(ahorro.id).subscribe({
+          next: (data) => {
+            let index = this.ahorros.findIndex((x) => x.id == ahorro.id);
+            this.ahorros.splice(index, 1);
+            this.dataSource = new MatTableDataSource(this.ahorros);
+            this._snackBar.open('Ahorro borrado', 'Cerrar', {
+              duration: 3000,
+            });
+          },
+          error: (data) => {
+            console.log(data);
+            this._snackBar.open('Ocurrio un error :(', 'Cerrar', {
+              duration: 5000,
+            });
+          },
+        });
+      }
     });
   }
 
