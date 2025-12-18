@@ -26,8 +26,8 @@ export class ListaDeAhorrosComponent {
       data: ahorroDto,
     });
   }
-  readonly dialog = inject(MatDialog);
 
+  readonly dialog = inject(MatDialog);
   agregarAhorro() {
     const dialogRef = this.dialog.open(FormularioDeAhorroComponent, {});
     dialogRef.afterClosed().subscribe((result) => {

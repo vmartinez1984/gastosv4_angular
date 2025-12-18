@@ -3,8 +3,6 @@ import { ListaDeSubcategoriasComponent } from './components/subcategorias/lista-
 import { ListaDeAhorrosComponent } from './components/ahorros/lista-de-ahorros/lista-de-ahorros.component'
 import { DetallesDelAhorroComponent } from './components/ahorros/detalles-del-ahorro/detalles-del-ahorro.component';
 import { ListaDeVersionesComponent } from './components/versiones/lista-de-versiones/lista-de-versiones.component';
-import { AgregarVersionComponent } from './components/versiones/agregar-version/agregar-version.component';
-import { EditarVersionComponent } from './components/versiones/editar-version/editar-version.component';
 import { DetallesDeVersionComponent } from './components/versiones/detalles-de-version/detalles-de-version.component';
 import { AgregarPresupuestoComponent } from './components/versiones/presupuestos/agregar-presupuesto/agregar-presupuesto.component';
 import { EditarPresupuestoComponent } from './components/versiones/presupuestos/editar-presupuesto/editar-presupuesto.component';
@@ -24,8 +22,6 @@ export const routes: Routes = [
     { path: "ahorros/detalles/:id", component: DetallesDelAhorroComponent, canActivate: [SesionGuard] },
     { path: "subcategorias", component: ListaDeSubcategoriasComponent, canActivate: [SesionGuard] },
     { path: "versiones", component: ListaDeVersionesComponent, canActivate: [SesionGuard] },
-    { path: "versiones/agregar", component: AgregarVersionComponent, canActivate: [SesionGuard] },
-    { path: "versiones/:id/editar", component: EditarVersionComponent, canActivate: [SesionGuard] },
     { path: "versiones/:id/detalles", component: DetallesDeVersionComponent, canActivate: [SesionGuard] },
     { path: "versiones/:id/presupuestos/agregar", component: AgregarPresupuestoComponent, canActivate: [SesionGuard] },
     { path: "versiones/:id/presupuestos/:presupuestoId/editar", component: EditarPresupuestoComponent, canActivate: [SesionGuard] },
