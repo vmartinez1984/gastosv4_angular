@@ -10,4 +10,10 @@
     <app-tabla-de-compras [compras]="lista.compras" />
   </p>
   }
+
+  @if(estaCargando){
+  <div class="text-aling-center">
+    <mat-spinner></mat-spinner>
+  </div>
+  }
 </div>

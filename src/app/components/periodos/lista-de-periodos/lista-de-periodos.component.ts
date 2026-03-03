@@ -3,7 +3,6 @@ import { PeriodoDto } from '../../../interfaces/periodo-dto';
 import { GastoService } from '../../../services/gasto.service';
 import { error } from '../../../helpers/toast';
 import { MatTableDataSource } from '@angular/material/table';
-import Swal from 'sweetalert2';
 import { MaterialModule } from '../../../modules/material/material.module';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';

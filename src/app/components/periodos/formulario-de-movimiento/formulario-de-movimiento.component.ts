@@ -82,7 +82,7 @@ export class FormularioDeMovimientoComponent {
     this.formGroup = this.formBuilder.group({
       cantidad: [
         0,
-        [Validators.required, Validators.min(1), Validators.max(5000)],
+        [Validators.required, Validators.min(1), Validators.max(7000)],
       ],
       nota: [''],
     });

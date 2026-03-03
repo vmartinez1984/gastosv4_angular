@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { TablaDeComprasComponent } from '../tabla-de-compras/tabla-de-compras.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 
 @Component({
@@ -17,6 +18,7 @@ import { TablaDeComprasComponent } from '../tabla-de-compras/tabla-de-compras.co
     RouterModule,
     MatIconModule,
     MatButtonModule,
+    MatProgressSpinner,
     TablaDeComprasComponent
   ],
   templateUrl: './lista-de-compras.component.html',
@@ -36,17 +38,20 @@ export class ListaDeComprasComponent {
   compras: CompraDto[] = [];
   readonly dialog = inject(MatDialog);
   listaDeCompras: ListaDeCompras[]=[]
+  estaCargando = false
 
   constructor(private servicio: CompraTdcService) {
     this.obtenerTodos();
   }
 
   obtenerTodos() {
+    this.estaCargando = true
     this.servicio.obtenerComprasTdc().subscribe({
       next: (compras) => {
         this.listaDeCompras = compras;
         console.log(compras);
         this.total = compras.reduce((acc, compra) => acc + compra.total, 0);
+        this.estaCargando = false
       },
     });
   }

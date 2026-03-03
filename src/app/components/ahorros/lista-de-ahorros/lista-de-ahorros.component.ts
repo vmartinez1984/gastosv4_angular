@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormularioDeAhorroComponent } from '../formulario-de-ahorro/formulario-de-ahorro.component';
 import { BorrarElementoComponent } from '../../borrar-elemento/borrar-elemento.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { concatMap } from 'rxjs';
 
 @Component({
   selector: 'app-lista-de-ahorros',
@@ -83,14 +84,41 @@ export class ListaDeAhorrosComponent {
   dataSource = new MatTableDataSource(this.ahorros);
   total: number = 0;
 
-  constructor(private servicio: GastoService) {
+  constructor(private servicio: GastoService) {}
+
+  ngOnInit() {
     this.estaCargando = true;
-    this.servicio.tipoDeAhorro.obtenerTodos().subscribe({
-      next: (tipoDeAhorros) => {
-        this.tipoDeAhorros = tipoDeAhorros;
-      },
-    });
-    this.obtenerAhorros();
+    this.servicio.tipoDeAhorro
+      .obtenerTodos()
+      .pipe(
+        concatMap((tipoDeAhorros) => {
+          this.tipoDeAhorros = tipoDeAhorros;
+          return this.servicio.ahorro.obtenerTodos();
+        })
+      )
+      .subscribe({
+        next: (ahorros) => {
+          this.ahorros = ahorros;
+          this.total = 0;
+
+          this.ahorros.forEach((item) => {
+            this.total += item.balance;
+
+            const tipoDeAhorro = this.tipoDeAhorros.find(
+              (x) => x.id === item.tipoDeAhorroId
+            );
+
+            item.tipoDeAhorroNombre = tipoDeAhorro ? tipoDeAhorro.nombre : 'na';
+          });
+
+          this.dataSource = new MatTableDataSource(this.ahorros);
+          this.estaCargando = false;
+        },
+        error: (err) => {
+          console.error(err);
+          this.estaCargando = false;
+        },
+      });
   }
 
   obtenerAhorros() {

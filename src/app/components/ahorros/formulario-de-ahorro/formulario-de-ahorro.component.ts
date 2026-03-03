@@ -28,6 +28,7 @@ export class FormularioDeAhorroComponent {
   readonly dialogRef = inject(MatDialogRef<FormularioDeAhorroComponent>);
   readonly ahorro = inject<AhorroDto>(MAT_DIALOG_DATA);
   private _snackBar = inject(MatSnackBar);
+  titulo = 'Agregar nuevo ahorro'
 
   constructor(private servicio: GastoService, private formBuild: FormBuilder) {
     this.formGroup = this.formBuild.group({
@@ -38,7 +39,10 @@ export class FormularioDeAhorroComponent {
       tipoDeAhorroId: ['', Validators.required],
     });
     this.obtenerTiposDeAhorros();
-    console.log(this.ahorro);
+    //console.log(this.ahorro);
+    if(this.ahorro != null){
+      this.titulo = 'Editar ahorro';
+    }
   }
 
   iniciarFormulario() {

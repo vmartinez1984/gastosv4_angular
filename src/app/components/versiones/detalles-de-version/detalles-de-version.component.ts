@@ -7,7 +7,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MaterialModule } from '../../../modules/material/material.module';
 import { CommonModule } from '@angular/common';
 import { error, unMomento } from '../../../helpers/toast';
-import Swal from 'sweetalert2';
 import { SubcategoriaDto } from '../../../interfaces/subcategoria-dto';
 
 @Component({
@@ -27,43 +26,43 @@ export class DetallesDeVersionComponent {
     });
   }
   borrar(presupuesto: any) {
-    Swal.fire({
-      title: '¿Desea borrar el presupuesto?',
-      text: presupuesto.cantidad + ', ' + presupuesto.subcategoria.nombre,
-      showDenyButton: false,
-      showCancelButton: true,
-      confirmButtonText: 'Borrar',
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        unMomento();
-        this.servicio.presupuesto
-          .borrarPresupuesto(this.versionDto?.id, presupuesto.id)
-          .subscribe({
-            next: (data) => {
-              let index = this.presupuestos.findIndex(
-                (x) => x.id == presupuesto.id
-              );
-              console.log(index);
-              this.presupuestos.splice(index, 1);
-              //console.log(this.presupuestos)
-              this.dataSource = new MatTableDataSource(this.presupuestos);
-              Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: 'Versión borrada correctamente',
-                showConfirmButton: false,
-                toast: true,
-                timer: 1500,
-              });
-            },
-            error: (data) => {
-              console.log(data);
-              error();
-            },
-          });
-      }
-    });
+    // Swal.fire({
+    //   title: '¿Desea borrar el presupuesto?',
+    //   text: presupuesto.cantidad + ', ' + presupuesto.subcategoria.nombre,
+    //   showDenyButton: false,
+    //   showCancelButton: true,
+    //   confirmButtonText: 'Borrar',
+    // }).then((result) => {
+    //   /* Read more about isConfirmed, isDenied below */
+    //   if (result.isConfirmed) {
+    //     unMomento();
+    //     this.servicio.presupuesto
+    //       .borrarPresupuesto(this.versionDto?.id, presupuesto.id)
+    //       .subscribe({
+    //         next: (data) => {
+    //           let index = this.presupuestos.findIndex(
+    //             (x) => x.id == presupuesto.id
+    //           );
+    //           console.log(index);
+    //           this.presupuestos.splice(index, 1);
+    //           //console.log(this.presupuestos)
+    //           this.dataSource = new MatTableDataSource(this.presupuestos);
+    //           Swal.fire({
+    //             position: 'top-end',
+    //             icon: 'success',
+    //             title: 'Versión borrada correctamente',
+    //             showConfirmButton: false,
+    //             toast: true,
+    //             timer: 1500,
+    //           });
+    //         },
+    //         error: (data) => {
+    //           console.log(data);
+    //           error();
+    //         },
+    //       });
+    //   }
+    // });
   }
 
   private versionDto?: VersionDto;

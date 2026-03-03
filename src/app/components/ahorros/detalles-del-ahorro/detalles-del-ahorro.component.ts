@@ -26,11 +26,13 @@ export class DetallesDelAhorroComponent {
     });
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
-      this._snackBar.open('Retiro realizado', result.id, {
-        duration: 3000,
-      });
-      this.obtenerAhorro(this.ahorroId);
-      this.obtenerMovimientos(this.ahorroId);
+      if (result) {
+        this._snackBar.open('Retiro realizado', result.id, {
+          duration: 3000,
+        });
+        this.obtenerAhorro(this.ahorroId);
+        this.obtenerMovimientos(this.ahorroId);
+      }
     });
   }
   readonly dialog = inject(MatDialog);
@@ -40,12 +42,14 @@ export class DetallesDelAhorroComponent {
       width: '600px',
     });
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
-      this._snackBar.open('Depósito realizado', result.id, {
-        duration: 3000,
-      });
-      this.obtenerAhorro(this.ahorroId);
-      this.obtenerMovimientos(this.ahorroId);
+      //console.log(result);
+      if (result) {
+        this._snackBar.open('Depósito realizado', result.id, {
+          duration: 3000,
+        });
+        this.obtenerAhorro(this.ahorroId);
+        this.obtenerMovimientos(this.ahorroId);
+      }
     });
   }
 

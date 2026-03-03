@@ -13,6 +13,7 @@ import { SubcategoriaDto } from '../../../interfaces/subcategoria-dto';
 import { TipoDeAhorroDto } from '../../../interfaces/tipo-de-ahorro-dto';
 import { PeriodoDto } from '../../../interfaces/periodo-dto';
 import { TransaccionDto } from '../../../interfaces/transaccion-dto';
+import { concatMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-detalle-de-periodo',
@@ -44,82 +45,81 @@ export class DetalleDePeriodoComponent {
     });
   }
 
-  obtenerPresupuestos(id: number) {
-    this.estaCargando = true;
-    this.servicio.subcategoria.obtenerTodos().subscribe({
-      next: (subcategorias) => {
-        this.subcategorias = subcategorias;
-      },
-    });
-    this.servicio.tipoDeAhorro.obtenerTodos().subscribe({
-      next: (tipos) => {
-        this.tiposDeAhorro = tipos;
-      },
-    });
-    this.servicio.periodo
-      .obtenerTodasTransacciones(this.periodo?.id)
-      .subscribe({
-        next: (transacciones) => {
-          this.transacciones = transacciones;
-        },
-      });
-    this.servicio.periodo.obtenerPresupuestos(id).subscribe({
-      next: (presupuestos) => {
-        console.log('Presupuestos', presupuestos);
-        this.presupuestos = presupuestos;
-        this.presupuestos.forEach((item) => {
-          let subcategoria = this.subcategorias.find(
-            (x) => x.id == item.subcategoriaId
-          );
-          item.subcategoriaNombre =
-            subcategoria == undefined ? 'na' : subcategoria.nombre;
-          let transacciones = this.transacciones.filter(
-            (x) => x.presupuestoId == item.id
-          );
-          let gastado = 0;
-          for (let index = 0; index < transacciones.length; index++) {
-            const element = transacciones[index];
-            gastado += element.cantidad;
-          }
-          item.gastado = gastado;
-        });
-        this.dataSource = new MatTableDataSource(this.presupuestos);
-        this.estaCargando = false;
-        this.gastado = 0;
-        this.presupuestos.forEach((item) => {
-          this.gastado = this.gastado + item.gastado;
-        });
-      },
-    });
-  }
-
   constructor(
     private servicio: GastoService,
-    private activatedRoute: ActivatedRoute,
-    router: Router
-  ) {
+    private activatedRoute: ActivatedRoute
+  ) {}
+
+  ngOnInit() {
     this.estaCargando = true;
     let id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
-    this.servicio.periodo.obtenerPorId(id).subscribe({
-      next: (periodo) => {
-        //console.log(data)
-        this.periodo = periodo;
-        this.estaCargando = true;
-        this.obtenerPresupuestos(periodo.id);
-      },
-      error: (data) => {
-        //console.log(data)
-        if (data.status == 401) {
-          router.navigate(['/', 'inicioDeSesion']);
-        }
-      },
-    });
-    this.servicio.ahorro.obtenerAhorroEje().subscribe({
-      next: (ahorroEje) => {
-        //console.log(ahorroEje)
-        this.ahorro = ahorroEje;
-      },
-    });
+    this.servicio.ahorro
+      .obtenerAhorroEje()
+      .pipe(
+        concatMap((ahorroEje) =>
+          this.servicio.periodo.obtenerPorId(id).pipe(
+            concatMap((periodo) =>
+              this.servicio.subcategoria.obtenerTodos().pipe(
+                concatMap((subcategorias) =>
+                  this.servicio.periodo
+                    .obtenerTodasTransacciones(periodo.id)
+                    .pipe(
+                      concatMap((transacciones) =>
+                        this.servicio.periodo
+                          .obtenerPresupuestos(periodo.id)
+                          .pipe(
+                            tap((presupuestos) => {
+                              this.ahorro = ahorroEje;
+                              this.periodo = periodo;
+                              this.subcategorias = subcategorias;
+                              this.transacciones = transacciones;
+                              this.presupuestos = presupuestos;
+                              this.presupuestos.forEach((item) => {
+                                let subcategoria = this.subcategorias.find(
+                                  (x) => x.id == item.subcategoriaId
+                                );
+                                item.subcategoriaNombre =
+                                  subcategoria == undefined
+                                    ? 'na'
+                                    : subcategoria.nombre;
+                                let transacciones = this.transacciones.filter(
+                                  (x) => x.presupuestoId == item.id
+                                );
+                                let gastado = 0;
+                                for (
+                                  let index = 0;
+                                  index < transacciones.length;
+                                  index++
+                                ) {
+                                  const element = transacciones[index];
+                                  gastado += element.cantidad;
+                                }
+                                item.gastado = gastado;
+                              });
+                              this.dataSource = new MatTableDataSource(
+                                this.presupuestos
+                              );
+                              this.gastado = 0;
+                              this.presupuestos.forEach((item) => {
+                                this.gastado = this.gastado + item.gastado;
+                              });
+                              this.estaCargando = false;
+                            })
+                          )
+                      )
+                    )
+                )
+              )
+            )
+          )
+        )
+      )
+      .subscribe({
+        error: (err) => {
+          console.error(err);
+          this.estaCargando = false;
+        },
+      });
   }
 
   calcularAamarillo(monto: number) {
@@ -128,6 +128,7 @@ export class DetalleDePeriodoComponent {
   calcularAverde(monto: number) {
     return monto * 1.1;
   }
+
   estaCargando = false;
   total: number = 0;
   gastado: number = 0;
@@ -147,5 +148,5 @@ export class DetalleDePeriodoComponent {
 export interface DialogData {
   presupuesto: PresupuestoDelPeriodoDto;
   periodoId: number;
-  cantidad: number
+  cantidad: number;
 }
